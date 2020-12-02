@@ -5,7 +5,6 @@
 <div class="container mb-3">
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Dynamic form">
-
       <h1 class="my-3">Dynamic form</h1>
       <ff-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"
                        [submit$]="submit$"></ff-dynamic-form>
@@ -21,16 +20,19 @@
       <h1 class="my-3">List and combobox, value: {{testControl.value}}</h1>
 
       validated multi value
-      <ff-combobox label="Label value items" [helperClass]="ValidatedMultiValueHelper" [control]="multiValuedControl" [items$]="standardItems$"></ff-combobox>
+      <ff-combobox label="Label value items" [helperClass]="ValidatedMultiValueHelper" [control]="multiValuedControl"
+                   [items$]="standardItems$"></ff-combobox>
 
       non validated multi value
-      <ff-combobox label="Label value items" [multi]="true" [validate]="false" [control]="multiValuedControl"></ff-combobox>
+      <ff-combobox label="Label value items" [multi]="true" [validate]="false"
+                   [control]="multiValuedControl"></ff-combobox>
 
       validated single value
       <ff-combobox label="Label value items" [items$]="standardItems$" [control]="testControl"></ff-combobox>
 
       non validated single value
-      <ff-combobox label="Label value items" [validate]="false" [items$]="standardItems$" [control]="testControl"></ff-combobox>
+      <ff-combobox label="Label value items" [validate]="false" [items$]="standardItems$"
+                   [control]="testControl"></ff-combobox>
       <button mat-raised-button color="primary" (click)="echo()">Log value</button>
 
 
