@@ -1,0 +1,31 @@
+<mat-form-field class="w-100">
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let item of (helper?.store$ | async)?.items" (removed)="removeValue(item)">
+      <span>{{item.label}}</span>
+      <strong matChipRemove>x</strong>
+    </mat-chip>
+    <input [matChipInputFor]="chipList"
+           *ngIf="validate && !(items$ | async)?.length"
+           [disabled]="true"
+           [placeholder]="label"
+           matInput />
+    <input [matChipInputFor]="chipList"
+           #input
+           *ngIf="!validate || (items$ | async)?.length"
+           type="text"
+           [placeholder]="label"
+           matInput
+           [formControl]="innerControl"
+           (matChipInputTokenEnd)="addValue($event)"
+           [matAutocomplete]="auto" />
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
+    <mat-option *ngFor="let option of helper?.filtered$ | async" [value]="option.value">
+      <span>{{option.label}}</span>
+    </mat-option>
+  </mat-autocomplete>
+  <ng-content select="mat-errors"></ng-content>
+  <span matSuffix>
+    <ng-content select="[matSuffix]"></ng-content>
+  </span>
+</mat-form-field>

@@ -1,0 +1,12 @@
+<form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="save($event)">
+  <ng-container *ngFor="let field of config">
+    <ng-container [lxqDynamicField]="field" [lxqDynamicFieldFormGroup]="formGroup"></ng-container>
+  </ng-container>
+  <button mat-raised-button
+          color="primary"
+          [disabled]="formGroup?.invalid"
+          [class.d-none]="submit$"
+          type="submit">
+    {{buttonText}}
+  </button>
+</form>

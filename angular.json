@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dynamic-forms": {
+    "dynamic-forms-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dynamic-forms",
+            "outputPath": "dist/dynamic-forms-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dynamic-forms:build"
+            "browserTarget": "dynamic-forms-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "dynamic-forms:build:production"
+              "browserTarget": "dynamic-forms-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dynamic-forms:build"
+            "browserTarget": "dynamic-forms-demo:build"
           }
         },
         "test": {
@@ -114,15 +114,55 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "dynamic-forms:serve"
+            "devServerTarget": "dynamic-forms-demo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "dynamic-forms:serve:production"
+              "devServerTarget": "dynamic-forms-demo:serve:production"
             }
           }
         }
       }
+    },
+    "dynamic-forms": {
+      "projectType": "library",
+      "root": "projects/dynamic-forms",
+      "sourceRoot": "projects/dynamic-forms/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/dynamic-forms/tsconfig.lib.json",
+            "project": "projects/dynamic-forms/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dynamic-forms/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dynamic-forms/src/test.ts",
+            "tsConfig": "projects/dynamic-forms/tsconfig.spec.json",
+            "karmaConfig": "projects/dynamic-forms/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dynamic-forms/tsconfig.lib.json",
+              "projects/dynamic-forms/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
-  "defaultProject": "dynamic-forms"
+  "defaultProject": "dynamic-forms-demo"
 }
