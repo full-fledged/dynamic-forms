@@ -8,7 +8,7 @@ export * from './lib/combobox/helpers/non-validated-single-value-helper';
 export * from './lib/combobox/helpers/validated-multi-value-helper';
 export * from './lib/combobox/helpers/validated-single-value-helper';
 
-export * from './lib/ng-commons.module';
+export * from './lib/dynamic-forms.module';
 
 export * from './lib/utils/ng-commons.utils';
 
