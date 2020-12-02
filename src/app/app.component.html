@@ -9,16 +9,16 @@
       <h1 class="my-3">List and combobox, value: {{testControl.value}}</h1>
 
       validated multi value
-      <lxq-combobox label="Label value items" [helperClass]="ValidatedMultiValueHelper" [control]="multiValuedControl" [items$]="standardItems$"></lxq-combobox>
+      <ff-combobox label="Label value items" [helperClass]="ValidatedMultiValueHelper" [control]="multiValuedControl" [items$]="standardItems$"></ff-combobox>
 
       non validated multi value
-      <lxq-combobox label="Label value items" [multi]="true" [validate]="false" [control]="multiValuedControl"></lxq-combobox>
+      <ff-combobox label="Label value items" [multi]="true" [validate]="false" [control]="multiValuedControl"></ff-combobox>
 
       validated single value
-      <lxq-combobox label="Label value items" [items$]="standardItems$" [control]="testControl"></lxq-combobox>
+      <ff-combobox label="Label value items" [items$]="standardItems$" [control]="testControl"></ff-combobox>
 
       non validated single value
-      <lxq-combobox label="Label value items" [validate]="false" [items$]="standardItems$" [control]="testControl"></lxq-combobox>
+      <ff-combobox label="Label value items" [validate]="false" [items$]="standardItems$" [control]="testControl"></ff-combobox>
       <button mat-raised-button color="primary" (click)="echo()">Log value</button>
 
 
@@ -27,8 +27,8 @@
 
       <h1 class="my-3">Dynamic form</h1>
 
-      <lxq-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"
-                        [submit$]="submit$"></lxq-dynamic-form>
+      <ff-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"
+                        [submit$]="submit$"></ff-dynamic-form>
 
       <div class="mb-3">
       <button [disabled]="form.invalid$ | async" mat-raised-button color="primary" (click)="submit$.next()">Submit

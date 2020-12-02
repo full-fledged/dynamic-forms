@@ -11,7 +11,7 @@ import {NonValidatedMultiValueHelper} from './helpers/non-validated-multi-value-
 import {ValidatedMultiValueHelper} from './helpers/validated-multi-value-helper';
 
 @Component({
-  selector: 'lxq-combobox',
+  selector: 'ff-combobox',
   templateUrl: './combobox.component.html',
   styleUrls: ['./combobox.component.scss']
 })

@@ -21,7 +21,7 @@ import * as _merge from 'deepmerge';
 
 @Component({
   templateUrl: './dynamic-form.component.html',
-  selector: 'lxq-dynamic-form',
+  selector: 'ff-dynamic-form',
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnChanges, OnDestroy {
