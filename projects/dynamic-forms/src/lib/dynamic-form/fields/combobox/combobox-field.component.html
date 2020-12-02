@@ -1,5 +1,5 @@
 <div class="w-100 mb-3" *ngIf="control && (visible$ | async)">
-  <lxq-combobox [id]="field.name"
+  <ff-combobox [id]="field.name"
                 [control]="control"
                 [items$]="field.items$"
                 [label]="field.label"
@@ -9,5 +9,5 @@
     <mat-error *ngIf="mapErrors(control) as errors">
       {{errors.join(', ')}}
     </mat-error>
-  </lxq-combobox>
+  </ff-combobox>
 </div>
