@@ -14,7 +14,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Observable, of, Subscription} from 'rxjs';
 import {map, shareReplay, startWith, take} from 'rxjs/operators';
 import {DynamicField} from './dynamic-field.model';
-import {LXQ_DATA_TYPE_MAPPING, LXQ_DYNAMIC_FIELD_TYPES} from './dynamic-form-inject-tokens';
+import {FF_DATA_TYPE_MAPPING, FF_DYNAMIC_FIELD_TYPES} from './dynamic-form-inject-tokens';
 import {NgCommonsUtils} from '../utils/ng-commons.utils';
 import * as _merge from 'deepmerge';
 
@@ -30,26 +30,35 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
 
   @Input() config: DynamicField[];
   @Input() buttonText = 'Opslaan';
+  @Input() submit$: Observable<void>;
+  @Output() submit = new EventEmitter();
+  title: string;
+  public formGroup: FormGroup;
+  public invalid$: Observable<boolean>;
+  private patcher$ = of({});
+  private subscriptions: Subscription[] = [];
+
+  constructor(
+    @Inject(FF_DATA_TYPE_MAPPING) private dataTypeMapping: any,
+    @Inject(FF_DYNAMIC_FIELD_TYPES) private fieldTypes: any
+  ) {
+  }
 
   @Input('patcher$') set setPatcher$(input: Observable<any>) {
     this.patcher$ = !input ? of({}) : input.pipe(shareReplay(1));
   }
 
-  @Input() submit$: Observable<void>;
-  @Output() submit = new EventEmitter();
+  get value() {
+    return this.expandFormValue(this.formGroup.getRawValue());
+  }
 
-  title: string;
-
-  public formGroup: FormGroup;
-  public invalid$: Observable<boolean>;
-
-  private patcher$ = of({});
-  private subscriptions: Subscription[] = [];
-
-  constructor(
-    @Inject(LXQ_DATA_TYPE_MAPPING) private dataTypeMapping: any,
-    @Inject(LXQ_DYNAMIC_FIELD_TYPES) private fieldTypes: any
-  ) {
+  get value$() {
+    return this.formGroup.valueChanges
+      .pipe(
+        map(() => this.formGroup.getRawValue()),
+        map(value => this.expandFormValue(value)),
+        startWith(this.value)
+      );
   }
 
   ngOnChanges(): void {
@@ -57,16 +66,11 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
       return;
     }
     const formObject: any = this.config
-      .filter(field => field.type !== 'title')
-      .reduce((state, field) => {
-        return {
-          ...state,
-          [field.name]: new FormControl(field.value, !!field.validators ? [...field.validators] : [])
-        };
-      }, {});
-
+      .reduce((state, field) => ({
+        ...state,
+        [field.name]: new FormControl(field.value, field.validators || [])
+      }), {});
     this.formGroup = new FormGroup(formObject);
-
     const sub1 = this.patcher$
       .subscribe(value => {
         if (!value) {
@@ -89,6 +93,19 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
       .forEach(sub => sub.unsubscribe());
   }
 
+  save(event?: any) {
+    if (!!event) {
+      event.stopPropagation();
+    }
+    this.patcher$
+      .pipe(take(1))
+      .subscribe(original => {
+        const merge = _merge;
+        const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
+        this.submit.emit(merge(original, this.value, {arrayMerge: overwriteMerge}));
+      });
+  }
+
   private expandFormValue(input) {
     const mapped = Object.keys(input)
       .map(key => {
@@ -109,31 +126,5 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
         };
       }, {});
     return NgCommonsUtils.expand(mapped);
-  }
-
-  get value() {
-    return this.expandFormValue(this.formGroup.getRawValue());
-  }
-
-  get value$() {
-    return this.formGroup.valueChanges
-      .pipe(
-        map(() => this.formGroup.getRawValue()),
-        map(value => this.expandFormValue(value)),
-        startWith(this.value)
-      );
-  }
-
-  save(event?: any) {
-    if (!!event) {
-      event.stopPropagation();
-    }
-    this.patcher$
-      .pipe(take(1))
-      .subscribe(original => {
-        const merge = _merge;
-        const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
-        this.submit.emit(merge(original, this.value, {arrayMerge: overwriteMerge}));
-      });
   }
 }

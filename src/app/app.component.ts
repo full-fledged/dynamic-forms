@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DYNAMIC_FORM, STANDARD_ITEMS$, VALUE_LABEL_ITEMS$} from './form.constants';
 import {FormControl} from '@angular/forms';
 import {of, Subject} from 'rxjs';
@@ -10,7 +10,7 @@ import { ValidatedMultiValueHelper } from 'projects/dynamic-forms/src/public-api
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   testControl = new FormControl(2);
   multiValuedControl = new FormControl([2]);
   control = new FormControl('bla');

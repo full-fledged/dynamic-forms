@@ -4,6 +4,18 @@
 
 <div class="container mb-3">
   <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Dynamic form">
+
+      <h1 class="my-3">Dynamic form</h1>
+      <ff-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"
+                       [submit$]="submit$"></ff-dynamic-form>
+
+      <div class="mb-3">
+        <button [disabled]="form.invalid$ | async" mat-raised-button color="primary" (click)="submit$.next()">Submit
+        </button>
+        <button mat-raised-button class="ml-2" (click)="patchForm()">patch</button>
+      </div>
+    </mat-tab>
     <mat-tab label="List and combobox">
 
       <h1 class="my-3">List and combobox, value: {{testControl.value}}</h1>
@@ -22,19 +34,6 @@
       <button mat-raised-button color="primary" (click)="echo()">Log value</button>
 
 
-    </mat-tab>
-    <mat-tab label="Dynamic form">
-
-      <h1 class="my-3">Dynamic form</h1>
-
-      <ff-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"
-                        [submit$]="submit$"></ff-dynamic-form>
-
-      <div class="mb-3">
-      <button [disabled]="form.invalid$ | async" mat-raised-button color="primary" (click)="submit$.next()">Submit
-      </button>
-      <button mat-raised-button class="ml-2" (click)="patchForm()">patch</button>
-      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

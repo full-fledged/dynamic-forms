@@ -2,11 +2,6 @@
 
 export class FlatUtils {
 
-  private static isBuffer(obj) {
-    return obj != null && obj.constructor != null &&
-      typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
-  }
-
   public static flatten(target, opts?) {
     opts = opts || {};
 
@@ -109,5 +104,10 @@ export class FlatUtils {
       });
 
     return result;
+  }
+
+  private static isBuffer(obj) {
+    return obj != null && obj.constructor != null &&
+      typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
   }
 }

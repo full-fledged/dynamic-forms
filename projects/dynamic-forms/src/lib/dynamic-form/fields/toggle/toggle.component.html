@@ -1,5 +1,5 @@
-<div class="w-100 mb-3" *ngIf="control && (visible$ | async)">
-  <mat-slide-toggle color="primary" [formControl]="control" [id]="field.name">{{field.label}}</mat-slide-toggle>
+<div *ngIf="control && (visible$ | async)" class="w-100 mb-3">
+  <mat-slide-toggle [formControl]="control" [id]="field.name" color="primary">{{field.label}}</mat-slide-toggle>
   <mat-error *ngIf="mapErrors(control) as errors">
     {{errors.join(', ')}}
   </mat-error>

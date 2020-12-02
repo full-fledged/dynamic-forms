@@ -1,4 +1,4 @@
-<mat-form-field class="w-100 mb-3" [id]="field.name" *ngIf="control && (visible$ | async)">
+<mat-form-field *ngIf="control && (visible$ | async)" [id]="field.name" class="w-100 mb-3">
   <mat-label>{{field.label}}</mat-label>
   <mat-select [formControl]="control">
     <mat-option *ngFor="let item of field.items$ | async" [value]="item.value != undefined ? item.value : item">

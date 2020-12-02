@@ -32,7 +32,7 @@ export abstract class AbstractComboboxHelper {
 
   abstract select(event: MatAutocompleteActivatedEvent | { option: { value: any } }, inputElement: ElementRef<HTMLInputElement>);
 
-  setFilteredItems(): Observable<{label: string, value: any}[]> {
+  setFilteredItems(): Observable<{ label: string, value: any }[]> {
     return combineLatest([this.innerControl.valueChanges.pipe(startWith('')), this.items$])
       .pipe(
         map(([value, items]: any) => items

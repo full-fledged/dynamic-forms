@@ -1,6 +1,10 @@
-<mat-form-field class="w-100 mb-3" *ngIf="control && (visible$ | async)">
-  <input matInput [formControl]="control" [matDatepicker]="picker" [placeholder]="field.label" [id]="field.name">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-form-field *ngIf="control && (visible$ | async)" class="w-100 mb-3">
+  <mat-label>{{field.label}}</mat-label>
+  <input [formControl]="control"
+         [id]="field.name"
+         [matDatepicker]="picker"
+         matInput/>
+  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 
   <mat-error *ngIf="mapErrors(control) as errors">

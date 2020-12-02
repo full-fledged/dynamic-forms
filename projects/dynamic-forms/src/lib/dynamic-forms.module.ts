@@ -23,10 +23,10 @@ import {ToggleComponent} from './dynamic-form/fields/toggle/toggle.component';
 import {RadioGroupComponent} from './dynamic-form/fields/radio-group/radio-group.component';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {LXQ_DATA_TYPE_MAPPING, LXQ_DYNAMIC_FIELD_TYPES, LXQ_ERROR_MESSAGE_MAPPING} from './dynamic-form/dynamic-form-inject-tokens';
-import {NG_COMMON_DATA_TYPE_MAPPING} from './dynamic-form/ng-common-datatype-mapping';
-import {NG_COMMON_DYNAMIC_FIELD_TYPES} from './dynamic-form/ng-common-dynamic-field-types';
-import {NG_COMMON_ERROR_MESSAGE_MAPPING} from './dynamic-form/ng-common-error-message-mapping';
+import {FF_DATA_TYPE_MAPPING, FF_DYNAMIC_FIELD_TYPES, FF_ERROR_MESSAGE_MAPPING} from './dynamic-form/dynamic-form-inject-tokens';
+import {DYNAMIC_FORMS_DATA_TYPE_MAPPING} from './dynamic-form/ng-common-datatype-mapping';
+import {DYNAMIC_FORMS_FIELD_TYPES} from './dynamic-form/ng-common-dynamic-field-types';
+import {DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING} from './dynamic-form/ng-common-error-message-mapping';
 import {ComboboxComponent} from './combobox/combobox.component';
 
 @NgModule({
@@ -66,10 +66,10 @@ import {ComboboxComponent} from './combobox/combobox.component';
     {provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-    {provide: LXQ_DATA_TYPE_MAPPING, useValue: NG_COMMON_DATA_TYPE_MAPPING},
-    {provide: LXQ_DYNAMIC_FIELD_TYPES, useValue: NG_COMMON_DYNAMIC_FIELD_TYPES},
-    {provide: LXQ_ERROR_MESSAGE_MAPPING, useValue: NG_COMMON_ERROR_MESSAGE_MAPPING}
+    {provide: FF_DATA_TYPE_MAPPING, useValue: DYNAMIC_FORMS_DATA_TYPE_MAPPING},
+    {provide: FF_DYNAMIC_FIELD_TYPES, useValue: DYNAMIC_FORMS_FIELD_TYPES},
+    {provide: FF_ERROR_MESSAGE_MAPPING, useValue: DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING}
   ]
 })
-export class DynamicFormModule {
+export class DynamicFormsModule {
 }

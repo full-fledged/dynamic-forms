@@ -52,6 +52,17 @@ export const STANDARD_ITEMS$ = of([
 
 export const DYNAMIC_FORM: DynamicField[] = [
   {
+    name: 'date',
+    type: 'date',
+    dataType: 'date',
+    label: 'Date'
+  },
+  {
+    name: 'bla',
+    label: 'blae',
+    type: 'title'
+  },
+  {
     name: 'combobox-list',
     label: 'Combobox List',
     value: [1],

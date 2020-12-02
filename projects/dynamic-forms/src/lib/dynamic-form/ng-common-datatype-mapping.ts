@@ -1,4 +1,4 @@
-export const NG_COMMON_DATA_TYPE_MAPPING = {
+export const DYNAMIC_FORMS_DATA_TYPE_MAPPING = {
   number: (value) => {
     const i = parseInt(value, undefined);
     return isNaN(i) ? value : i;

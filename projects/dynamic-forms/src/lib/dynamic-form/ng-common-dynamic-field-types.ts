@@ -8,7 +8,7 @@ import {DateFieldComponent} from './fields/date-field/date-field.component';
 import {ToggleComponent} from './fields/toggle/toggle.component';
 import {RadioGroupComponent} from './fields/radio-group/radio-group.component';
 
-export const NG_COMMON_DYNAMIC_FIELD_TYPES = {
+export const DYNAMIC_FORMS_FIELD_TYPES = {
   title: TitleComponent,
   text: TextFieldComponent,
   select: SelectComponent,

@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {AbstractDynamicFieldComponent} from '../abstract-dynamic-field.component';
-import {LXQ_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
+import {FF_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
 
 @Component({
   templateUrl: './radio-group.component.html',
@@ -8,7 +8,7 @@ import {LXQ_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
 })
 export class RadioGroupComponent extends AbstractDynamicFieldComponent {
 
-  constructor(@Inject(LXQ_ERROR_MESSAGE_MAPPING) errorMapping) {
+  constructor(@Inject(FF_ERROR_MESSAGE_MAPPING) errorMapping) {
     super(errorMapping);
   }
 }

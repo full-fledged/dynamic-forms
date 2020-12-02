@@ -1,9 +1,9 @@
-<mat-form-field class="w-100 mb-3" *ngIf="control && (visible$ | async)">
-  <input matInput
+<mat-form-field *ngIf="control && (visible$ | async)" class="w-100 mb-3">
+  <input [formControl]="control"
+         [id]="field.name"
          [placeholder]="field.label"
-         [formControl]="control"
-         type="text"
-         [id]="field.name">
+         matInput
+         type="text">
   <mat-error *ngIf="mapErrors(control) as errors">
     {{errors.join(', ')}}
   </mat-error>
