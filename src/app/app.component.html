@@ -4,6 +4,22 @@
 
 <div class="container mb-3">
   <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Multiple forms">
+      <h1 class="my-3">Multiple forms</h1>
+
+      <button mat-icon-button (click)="addForm()">+</button>
+
+      <ng-container *ngFor="let config of submitter.items">
+        <ff-dynamic-form [config]="[{name: 'bla', label: 'bla'}]"
+                         [submit$]="config.submit$"
+                         (submit)="config.submit($event)">
+        </ff-dynamic-form>
+      </ng-container>
+
+      <div class="mb-3">
+        <button mat-raised-button (click)="submitMulti()">Submit all</button>
+      </div>
+    </mat-tab>
     <mat-tab label="Dynamic form">
       <h1 class="my-3">Dynamic form</h1>
       <ff-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"

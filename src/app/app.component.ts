@@ -4,6 +4,7 @@ import {FormControl} from '@angular/forms';
 import {of, Subject} from 'rxjs';
 import {delay, startWith} from 'rxjs/operators';
 import {ValidatedMultiValueHelper} from 'projects/dynamic-forms/src/public-api';
+import {MultiFormSubmitter} from './multi-form-submitter';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,9 @@ export class AppComponent implements OnInit {
 
   submit$ = new Subject();
   ValidatedMultiValueHelper = ValidatedMultiValueHelper;
+
+
+  submitter = new MultiFormSubmitter();
 
   ngOnInit(): void {
     this.control.setValue('item1');
@@ -59,5 +63,14 @@ export class AppComponent implements OnInit {
   echo() {
     console.log('test control: ', this.testControl.value);
     console.log('multi valued control: ', this.multiValuedControl.value);
+  }
+
+  submitMulti() {
+    this.submitter.submit()
+      .subscribe(console.log);
+  }
+
+  addForm() {
+    this.submitter.add();
   }
 }
