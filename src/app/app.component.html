@@ -9,11 +9,14 @@
 
       <button mat-icon-button (click)="addForm()">+</button>
 
-      <ng-container *ngFor="let config of submitter.items">
+      <ng-container *ngFor="let config of submitter.items; let i = index">
         <ff-dynamic-form [config]="[{name: 'bla', label: 'bla'}]"
                          [submit$]="config.submit$"
                          (submit)="config.submit($event)">
         </ff-dynamic-form>
+        <button mat-icon-button (click)="removeForm(i)">
+          X
+        </button>
       </ng-container>
 
       <div class="mb-3">

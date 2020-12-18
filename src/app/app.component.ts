@@ -73,4 +73,8 @@ export class AppComponent implements OnInit {
   addForm() {
     this.submitter.add();
   }
+
+  removeForm(index) {
+    this.submitter.remove(index);
+  }
 }

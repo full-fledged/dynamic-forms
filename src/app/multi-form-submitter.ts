@@ -29,4 +29,8 @@ export class MultiFormSubmitter {
       submit: (data) => this.sharedSubmitter$.next(data)
     });
   }
+
+  remove(index: any) {
+    this.items.splice(index, 1);
+  }
 }
