@@ -12,6 +12,7 @@
       <ng-container *ngFor="let config of submitter.items; let i = index">
         <ff-dynamic-form [config]="[{name: 'bla', label: 'bla'}]"
                          [submit$]="config.submit$"
+                         [patcher$]="config.patcher$"
                          (submit)="config.submit($event)">
         </ff-dynamic-form>
         <button mat-icon-button (click)="removeForm(i)">

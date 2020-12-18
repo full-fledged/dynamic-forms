@@ -1,15 +1,22 @@
-import {delay, scan, shareReplay, skip, take} from 'rxjs/operators';
-import {of, Subject} from 'rxjs';
+import {scan, shareReplay, skip, take} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
 
 export class MultiFormSubmitter {
 
   private sharedSubmitter$ = new Subject();
-  public items: { submit$: Subject<any>, submit: (data: any) => void }[] = [];
+  public items: { submit$: Subject<any>, submit: (data: any) => void, patcher$?: Observable<any> }[] = [];
+
+  constructor(patchers$) {
+    this.items = patchers$.map(it => ({
+      submit$: new Subject(),
+      submit: (data) => this.sharedSubmitter$.next(data),
+      patcher$: it
+    }));
+  }
 
   submit() {
-    of(true)
-      .pipe(delay(0))
-      .subscribe(() => {
+    Promise.resolve()
+      .then(() => {
         this.items
           .map(it => it.submit$)
           .forEach(s => s.next());
