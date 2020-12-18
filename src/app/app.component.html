@@ -6,22 +6,26 @@
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Multiple forms">
       <h1 class="my-3">Multiple forms</h1>
-
-      <button mat-icon-button (click)="addForm()">+</button>
-
-      <ng-container *ngFor="let config of submitter.items; let i = index">
-        <ff-dynamic-form [config]="[{name: 'bla', label: 'bla'}]"
-                         [submit$]="config.submit$"
-                         [patcher$]="config.patcher$"
-                         (submit)="config.submit($event)">
-        </ff-dynamic-form>
-        <button mat-icon-button (click)="removeForm(i)">
-          X
-        </button>
+      <ng-container *ngFor="let config of submitter.items$ | async; let i = index">
+        <div class="form-group-wrapper">
+          <div class="form-wrapper">
+            <ff-dynamic-form [config]="[{name: 'bla', label: 'bla'}]"
+                             [submit$]="config.submit$"
+                             [patcher$]="config.patcher$"
+                             (submit)="config.submit($event)">
+            </ff-dynamic-form>
+          </div>
+          <div class="button-wrapper">
+            <button mat-raised-button (click)="removeForm(i)">
+              delete
+            </button>
+          </div>
+        </div>
       </ng-container>
 
       <div class="mb-3">
-        <button mat-raised-button (click)="submitMulti()">Submit all</button>
+        <button mat-raised-button (click)="submitMulti()" class="mr-2">Submit all</button>
+        <button mat-raised-button (click)="addForm()">Add form</button>
       </div>
     </mat-tab>
     <mat-tab label="Dynamic form">

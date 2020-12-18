@@ -1,43 +1,74 @@
-import {scan, shareReplay, skip, take} from 'rxjs/operators';
-import {Observable, Subject} from 'rxjs';
+import {delay, map, mergeMap, scan, shareReplay, skip, startWith, take} from 'rxjs/operators';
+import {Observable, of, Subject} from 'rxjs';
 
 export class MultiFormSubmitter {
 
   private sharedSubmitter$ = new Subject();
-  public items: { submit$: Subject<any>, submit: (data: any) => void, patcher$?: Observable<any> }[] = [];
+  private itemsDispatcher$ = new Subject();
+  public items$: Observable<{ submit$: Subject<any>, submit: (data: any) => void, patcher$?: Observable<any> }[]>;
 
-  constructor(patchers$) {
-    this.items = patchers$.map(it => ({
-      submit$: new Subject(),
-      submit: (data) => this.sharedSubmitter$.next(data),
-      patcher$: it
-    }));
+  constructor(patchers$ = of([])) {
+    this.items$ = patchers$
+      .pipe(
+        map(values => values.map(value => ({
+            submit$: new Subject(),
+            submit: (data) => this.sharedSubmitter$.next(data),
+            patcher$: of(value)
+          }))
+        ),
+        mergeMap(it => this.itemsDispatcher$.pipe(startWith({type: 'INIT', value: it}))),
+        scan((state, action) => this.reduce(state, action), []),
+        shareReplay(1)
+      );
   }
 
   submit() {
-    Promise.resolve()
-      .then(() => {
-        this.items
-          .map(it => it.submit$)
-          .forEach(s => s.next());
-      });
-    return this.sharedSubmitter$
+    this.items$
       .pipe(
-        scan((state, value) => [...state, value], []),
-        skip(this.items.length - 1),
+        take(1),
+        delay(0),
+      )
+      .subscribe(submitters => submitters
+        .map(item => item.submit$)
+        .forEach(s => s.next())
+      );
+    return this.items$
+      .pipe(
+        mergeMap(items => this.sharedSubmitter$
+          .pipe(
+            scan((state, value) => [...state, value], []),
+            skip(items.length - 1),
+          )),
         take(1),
         shareReplay(1)
       );
   }
 
   add() {
-    this.items.push({
-      submit$: new Subject(),
-      submit: (data) => this.sharedSubmitter$.next(data)
-    });
+    this.itemsDispatcher$.next({type: 'ADD'});
   }
 
   remove(index: any) {
-    this.items.splice(index, 1);
+    this.itemsDispatcher$.next({type: 'REMOVE', value: index});
+  }
+
+  private reduce(state, action) {
+    if (action.type === 'INIT') {
+      return action.value;
+    }
+    if (action.type === 'REMOVE') {
+      return state
+        .filter((item, index) => index !== action.value);
+    }
+    if (action.type === 'ADD') {
+      return [
+        ...state,
+        {
+          submit$: new Subject(),
+          submit: (data) => this.sharedSubmitter$.next(data)
+        }
+      ];
+    }
+    return [];
   }
 }
