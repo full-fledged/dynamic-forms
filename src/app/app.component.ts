@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   ValidatedMultiValueHelper = ValidatedMultiValueHelper;
 
 
-  submitter = new MultiFormSubmitter(of([{bla: '123'}]));
+  submitter = MultiFormSubmitter.withValue([{bla: '123'}, {bla: 'bla'}]);
 
   ngOnInit(): void {
     this.control.setValue('item1');

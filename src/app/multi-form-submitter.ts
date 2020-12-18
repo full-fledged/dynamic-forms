@@ -1,13 +1,19 @@
 import {delay, map, mergeMap, scan, shareReplay, skip, startWith, take} from 'rxjs/operators';
 import {Observable, of, Subject} from 'rxjs';
 
+export interface SubmitterItem {
+  submit$: Subject<any>;
+  submit: (data: any) => void;
+  patcher$: Observable<any>;
+}
+
 export class MultiFormSubmitter {
 
   private sharedSubmitter$ = new Subject();
   private itemsDispatcher$ = new Subject();
-  public items$: Observable<{ submit$: Subject<any>, submit: (data: any) => void, patcher$?: Observable<any> }[]>;
+  public items$: Observable<SubmitterItem[]>;
 
-  constructor(patchers$ = of([])) {
+  private constructor(patchers$: Observable<any[]> = of([])) {
     this.items$ = patchers$
       .pipe(
         map(values => values.map(value => ({
@@ -20,6 +26,18 @@ export class MultiFormSubmitter {
         scan((state, action) => this.reduce(state, action), []),
         shareReplay(1)
       );
+  }
+
+  public static withPatcher(patcher$: Observable<any[]>) {
+    return new MultiFormSubmitter(patcher$);
+  }
+
+  public static withValue(value: any[]) {
+    return new MultiFormSubmitter(of(value));
+  }
+
+  public static empty() {
+    return new MultiFormSubmitter();
   }
 
   submit() {
