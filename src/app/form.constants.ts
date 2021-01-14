@@ -70,7 +70,11 @@ export const DYNAMIC_FORM: DynamicField[] = [
     items$: VALUE_LABEL_ITEMS$,
     extra: {
       multi: true
-    }
+    },
+    validators: [
+      Validators.required,
+      Validators.email
+    ]
   },
   {
     name: 'type',

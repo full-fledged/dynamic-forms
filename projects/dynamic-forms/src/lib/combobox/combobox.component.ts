@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnChanges, OnDestroy, Type, ViewChild} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {FormControl} from '@angular/forms';
-import {map, shareReplay} from 'rxjs/operators';
+import {filter, map, shareReplay} from 'rxjs/operators';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {AbstractComboboxHelper} from './helpers/abstract-combobox-helper';
@@ -9,6 +9,7 @@ import {ValidatedSingleValueHelper} from './helpers/validated-single-value-helpe
 import {NonValidatedSingleValueHelper} from './helpers/non-validated-single-value-helper';
 import {NonValidatedMultiValueHelper} from './helpers/non-validated-multi-value-helper';
 import {ValidatedMultiValueHelper} from './helpers/validated-multi-value-helper';
+import {ExtendedFormControl} from './extended.form-control';
 
 @Component({
   selector: 'ff-combobox',
@@ -30,7 +31,7 @@ export class ComboboxComponent implements OnChanges, OnDestroy {
 
   @ViewChild('input') input: ElementRef<HTMLInputElement>;
 
-  innerControl = new FormControl('');
+  innerControl = new ExtendedFormControl('');
   helper: AbstractComboboxHelper;
 
   ngOnChanges() {
@@ -56,6 +57,10 @@ export class ComboboxComponent implements OnChanges, OnDestroy {
     } else {
       throw new Error('ComboboxError: Options not implemented');
     }
+    const sub = this.innerControl.touched$
+      .pipe(filter(touched => touched))
+      .subscribe(touched => this.control.markAsTouched());
+    this.helper.subscriptions.push(sub);
   }
 
   ngOnDestroy(): void {

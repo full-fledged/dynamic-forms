@@ -26,8 +26,14 @@
       <span>{{option.label}}</span>
     </mat-option>
   </mat-autocomplete>
-  <ng-content select="mat-errors"></ng-content>
   <span matSuffix>
     <ng-content select="[matSuffix]"></ng-content>
   </span>
+
+  <!--  Hack because mat-error doesn't work with mat-autocomplete-->
+  <mat-hint>
+    <span class="mat-error">
+      <ng-content select="mat-error"></ng-content>
+    </span>
+  </mat-hint>
 </mat-form-field>
