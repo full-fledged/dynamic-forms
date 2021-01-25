@@ -63,6 +63,14 @@ export const DYNAMIC_FORM: DynamicField[] = [
     type: 'title'
   },
   {
+    name: 'bla',
+    label: 'blae',
+    type: 'textarea',
+    extra: {
+      rows: 8
+    }
+  },
+  {
     name: 'combobox-list',
     label: 'Combobox List',
     value: [1],

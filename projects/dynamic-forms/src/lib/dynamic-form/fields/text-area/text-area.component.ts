@@ -11,4 +11,8 @@ export class TextAreaComponent extends AbstractDynamicFieldComponent {
   constructor(@Inject(FF_ERROR_MESSAGE_MAPPING) errorMapping) {
     super(errorMapping);
   }
+
+  rows() {
+    return this.field.extra?.rows || 3;
+  }
 }

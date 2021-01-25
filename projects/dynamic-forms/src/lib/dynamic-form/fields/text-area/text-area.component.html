@@ -1,5 +1,9 @@
 <mat-form-field *ngIf="control && (visible$ | async)" class="w-100 mb-3">
-  <textarea [formControl]="control" [id]="field.name" [placeholder]="field.label" matInput rows="3"></textarea>
+  <textarea [formControl]="control"
+            [id]="field.name"
+            [placeholder]="field.label"
+            matInput
+            [rows]="rows()"></textarea>
   <mat-error *ngIf="mapErrors(control) as errors">
     {{errors.join(', ')}}
   </mat-error>
