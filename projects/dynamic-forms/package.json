@@ -1,6 +1,6 @@
 {
   "name": "@full-fledged/dynamic-forms",
-  "version": "11.0.4",
+  "version": "11.0.5",
   "peerDependencies": {
     "@angular/common": "^11.0.0",
     "@angular/core": "^11.0.0",
