@@ -7,7 +7,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
   ],
   imports: [
     MatToolbarModule,
-    HttpClientModule,
     DynamicFormsModule,
     MatTabsModule,
     MatButtonModule,
