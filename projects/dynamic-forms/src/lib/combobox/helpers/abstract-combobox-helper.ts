@@ -3,7 +3,7 @@ import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 import {Observable, of, Subscription} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
-import {map, mergeMap, shareReplay, startWith, withLatestFrom} from 'rxjs/operators';
+import {debounceTime, delay, map, mergeMap, shareReplay, startWith, tap, withLatestFrom} from 'rxjs/operators';
 
 export abstract class AbstractComboboxHelper {
 

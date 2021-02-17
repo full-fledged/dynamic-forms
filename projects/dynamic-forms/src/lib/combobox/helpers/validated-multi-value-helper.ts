@@ -54,17 +54,13 @@ export class ValidatedMultiValueHelper extends AbstractComboboxHelper {
   }
 
   select(event: MatAutocompleteActivatedEvent, inputElement: ElementRef<HTMLInputElement>) {
-    this.items$
-      .pipe(
-        take(1),
-        map((items: any[]) => items
-          .find(item => this.compareByProperty(item, event.option.value, 'value')))
-      )
-      .subscribe(item => {
-        this.dispatcher$.next({type: 'ADD', item, emit: true});
-        this.innerControl.setValue(null);
-        inputElement.nativeElement.value = '';
-      });
+    const item = {
+      label: event.option.getLabel(),
+      value: event.option.value
+    };
+    this.dispatcher$.next({type: 'ADD', item, emit: true});
+    this.innerControl.setValue(null);
+    inputElement.nativeElement.value = '';
   }
 
   reduce(state, action) {
