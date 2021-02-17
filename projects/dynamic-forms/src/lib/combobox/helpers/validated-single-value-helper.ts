@@ -21,7 +21,7 @@ export class ValidatedSingleValueHelper extends AbstractComboboxHelper {
         startWith(this.outerControl.value),
         withLatestFrom(this.items$),
         map(([value, items]: any[]) => items.find(item => item.value === value) ||
-          (value.value && value.label ? value : {value, label: value})
+          (value?.value && value?.label ? value : {value, label: value})
         ),
         map(item => !!item ? {type: 'SET', item, emit: false} : {type: 'REMOVE', emit: false}),
         mergeMap(action => this.dispatcher$.pipe(startWith(action))),
