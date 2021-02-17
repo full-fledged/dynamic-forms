@@ -1,8 +1,8 @@
 import {AbstractComboboxHelper} from './abstract-combobox-helper';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
-import {map, scan, shareReplay, startWith, take} from 'rxjs/operators';
-import {combineLatest, merge, Observable, Subject} from 'rxjs';
+import {map, mergeMap, scan, shareReplay, startWith, take, withLatestFrom} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
 
@@ -12,21 +12,22 @@ export class ValidatedMultiValueHelper extends AbstractComboboxHelper {
 
   constructor(outerControl: FormControl,
               innerControl: FormControl,
-              items$: Observable<{ value: any, label: any }[]>) {
+              items$: Observable<string[] | { value: any, label: any }[]> |
+                ((value: string) => Observable<string[] | { value: any, label: any }[]>)) {
     super(outerControl, innerControl, items$);
 
     this.store$ = this.outerControl.valueChanges
       .pipe(
         startWith(this.outerControl.value),
-        val$ => combineLatest([this.items$, val$]),
-        map(([items, values]: any[]) => items
-          .filter(item => (values || []).some(val => val === item.value))
+        withLatestFrom(this.items$),
+        map(([values, items]: any[]) => values.map(value => items.find(item => item.value === value) ||
+          (value.value && value.label ? value : {value, label: value}))
         ),
         map(items => !!items ?
           {type: 'SET', items, emit: false} :
           {type: 'SET', items: [], emit: false}
         ),
-        action$ => merge(action$, this.dispatcher$),
+        mergeMap(action => this.dispatcher$.pipe(startWith(action))),
         scan((state, value) => this.reduce(state, value), {items: []} as any),
         shareReplay(1),
       );

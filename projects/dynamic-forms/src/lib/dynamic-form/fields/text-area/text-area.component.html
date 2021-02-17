@@ -2,8 +2,8 @@
   <textarea [formControl]="control"
             [id]="field.name"
             [placeholder]="field.label"
-            matInput
-            [rows]="rows()"></textarea>
+            [rows]="rows()"
+            matInput></textarea>
   <mat-error *ngIf="mapErrors(control) as errors">
     {{errors.join(', ')}}
   </mat-error>

@@ -12,7 +12,8 @@ export class NonValidatedMultiValueHelper extends AbstractComboboxHelper {
 
   constructor(outerControl: FormControl,
               innerControl: FormControl,
-              items$: Observable<{ value: any, label: any }[]>) {
+              items$: Observable<string[] | { value: any, label: any }[]> |
+                ((value: string) => Observable<string[] | { value: any, label: any }[]>)) {
     super(outerControl, innerControl, items$);
 
     this.store$ = this.outerControl.valueChanges

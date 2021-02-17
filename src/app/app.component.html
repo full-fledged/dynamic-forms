@@ -5,6 +5,10 @@
 <div class="container mb-3">
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Multiple forms">
+
+      <ff-combobox [items$]="blaItems" label="moi" id="123123" [control]="ctrl">
+      </ff-combobox>
+
       <h1 class="my-3">Multiple forms</h1>
       <ng-container *ngFor="let config of submitter.items$ | async; let i = index">
         <div class="form-group-wrapper">

@@ -1,4 +1,6 @@
 <mat-form-field class="w-100">
+  <mat-label>{{label}}</mat-label>
+
   <mat-chip-list #chipList>
     <mat-chip (removed)="removeValue(item)" *ngFor="let item of (helper?.store$ | async)?.items">
       <span>{{item.label}}</span>
@@ -6,18 +8,11 @@
         close
       </mat-icon>
     </mat-chip>
-    <input *ngIf="validate && !(items$ | async)?.length"
-           [disabled]="true"
-           [matChipInputFor]="chipList"
-           [placeholder]="label"
-           matInput/>
     <input #input
            (matChipInputTokenEnd)="addValue($event)"
-           *ngIf="!validate || (items$ | async)?.length"
            [formControl]="innerControl"
            [matAutocomplete]="auto"
            [matChipInputFor]="chipList"
-           [placeholder]="label"
            matInput
            type="text"/>
   </mat-chip-list>

@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnChanges, OnDestroy, Type, ViewChild} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
-import {filter, map, shareReplay} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {AbstractComboboxHelper} from './helpers/abstract-combobox-helper';
@@ -18,7 +18,8 @@ import {ExtendedFormControl} from './extended.form-control';
 })
 export class ComboboxComponent implements OnChanges, OnDestroy {
 
-  @Input() items$: Observable<string[] | { value: string, label: string }[]>;
+  @Input() items$: Observable<string[] | { value: any, label: any }[]> |
+    ((value: string) => Observable<string[] | { value: any, label: any }[]>);
   @Input() control: FormControl;
 
   @Input() id: string;
@@ -36,24 +37,20 @@ export class ComboboxComponent implements OnChanges, OnDestroy {
 
   ngOnChanges() {
     this.ngOnDestroy();
-    const items$ = (this.items$ || of([]))
-      .pipe(
-        map(items => (items || [])
-          .map(item => !item?.label && !item?.value ? {label: item, value: item} : item)
-        ),
-        shareReplay(1),
-      );
 
+    if (!this.control) {
+      throw new Error('[control] input is mandatory for this component]');
+    }
     if (!!this.helperClass) {
-      this.helper = new this.helperClass(this.control, this.innerControl, items$);
+      this.helper = new this.helperClass(this.control, this.innerControl, this.items$);
     } else if (this.validate && !this.multi) {
-      this.helper = new ValidatedSingleValueHelper(this.control, this.innerControl, items$);
+      this.helper = new ValidatedSingleValueHelper(this.control, this.innerControl, this.items$);
     } else if (!this.validate && !this.multi) {
-      this.helper = new NonValidatedSingleValueHelper(this.control, this.innerControl, items$);
+      this.helper = new NonValidatedSingleValueHelper(this.control, this.innerControl, this.items$);
     } else if (!this.validate && this.multi) {
-      this.helper = new NonValidatedMultiValueHelper(this.control, this.innerControl, items$);
+      this.helper = new NonValidatedMultiValueHelper(this.control, this.innerControl, this.items$);
     } else if (this.validate && this.multi) {
-      this.helper = new ValidatedMultiValueHelper(this.control, this.innerControl, items$);
+      this.helper = new ValidatedMultiValueHelper(this.control, this.innerControl, this.items$);
     } else {
       throw new Error('ComboboxError: Options not implemented');
     }
