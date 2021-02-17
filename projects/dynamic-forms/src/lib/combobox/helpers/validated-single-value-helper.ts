@@ -20,7 +20,7 @@ export class ValidatedSingleValueHelper extends AbstractComboboxHelper {
       .pipe(
         startWith(this.outerControl.value),
         withLatestFrom(this.items$),
-        map(([value, items]: any[]) => items?.find(item => item?.value === value) ||
+        map(([value, items]: any[]) => items.find(item => item.value === value) ||
           (value?.value && value?.label ? value : {value, label: value})
         ),
         map(item => !!item ? {type: 'SET', item, emit: false} : {type: 'REMOVE', emit: false}),
@@ -49,13 +49,17 @@ export class ValidatedSingleValueHelper extends AbstractComboboxHelper {
   }
 
   select(event: MatAutocompleteActivatedEvent, inputElement: ElementRef<HTMLInputElement>) {
-    const item = {
-      label: event.option.getLabel(),
-      value: event.option.value
-    };
-    this.innerControl.setValue(null);
-    inputElement.nativeElement.value = '';
-    this.dispatcher$.next({type: 'SET', item, emit: true});
+    this.items$
+      .pipe(
+        take(1),
+        map((items: any[]) => items
+          .find(item => this.compareByProperty(item, event.option.value, 'value')))
+      )
+      .subscribe(item => {
+        this.dispatcher$.next({type: 'SET', item, emit: true});
+        this.innerControl.setValue(null);
+        inputElement.nativeElement.value = '';
+      });
   }
 
   reduce(state, action) {

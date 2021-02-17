@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {DYNAMIC_FORM, STANDARD_ITEMS$, VALUE_LABEL_ITEMS$} from './form.constants';
 import {FormControl} from '@angular/forms';
 import {of, Subject} from 'rxjs';
-import {delay, map, startWith} from 'rxjs/operators';
+import {catchError, delay, map, startWith, tap} from 'rxjs/operators';
 import {ValidatedMultiValueHelper} from 'projects/dynamic-forms/src/public-api';
 import {MultiFormSubmitter} from './multi-form-submitter';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -30,14 +31,17 @@ export class AppComponent implements OnInit {
 
   submitter = MultiFormSubmitter.withValue([{bla: '123'}, {bla: 'bla'}]);
 
-  ctrl = new FormControl({label: 'label a', value: 'value a'});
+  ctrl = new FormControl('b');
   blaItems = (value: string) => of([
-    {label: 'label a', value: 'value a'},
-    {label: 'label b', value: 'value b'},
-    {label: 'label c', value: 'value c'}
-  ]).pipe(
-    map(items => items.filter(it => it.label.indexOf(value) > -1))
-  );
+    {label: 'a', value: 'a'},
+    {label: 'b', value: 'b'},
+    {label: 'c', value: 'c'}
+  ]).pipe(map(items => items.filter(it => it.value === value)));
+
+  constructor(
+    private http: HttpClient
+  ) {
+  }
 
   ngOnInit(): void {
     this.control.setValue('item1');
@@ -51,7 +55,7 @@ export class AppComponent implements OnInit {
         delay(4000)
       )
       .subscribe(() => {
-        this.ctrl.setValue({label: 'label b', value: 'value b'});
+        this.ctrl.setValue('a');
         this.testControl.setValue(6);
         this.multiValuedControl.setValue([2, 6]);
       });
