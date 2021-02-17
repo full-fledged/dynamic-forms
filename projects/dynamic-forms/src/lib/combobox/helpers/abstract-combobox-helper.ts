@@ -1,9 +1,9 @@
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
-import {Observable, of, Subscription} from 'rxjs';
+import {combineLatest, Observable, of, Subscription} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
-import {debounceTime, delay, map, mergeMap, shareReplay, startWith, tap, withLatestFrom} from 'rxjs/operators';
+import {map, mergeMap, shareReplay, startWith} from 'rxjs/operators';
 
 export abstract class AbstractComboboxHelper {
 
@@ -61,7 +61,7 @@ export abstract class AbstractComboboxHelper {
     return this.innerControl.valueChanges
       .pipe(
         startWith(''),
-        withLatestFrom(this.items$),
+        val$ => combineLatest([val$, this.items$]),
         map(([value, items]: any) => this.isFiltered ? items : items
           .filter(item => {
             const val = `${!value ? '' : value}`;
@@ -72,17 +72,6 @@ export abstract class AbstractComboboxHelper {
         ),
         shareReplay(1)
       );
-  }
-
-  compareByProperty(item: any, text: any, property: string): boolean {
-    const query = this.toLower(text);
-    if (item === undefined || item === null) {
-      return false;
-    }
-    if (item[property] !== undefined && item[property] !== null) {
-      return query === this.toLower(item[property]);
-    }
-    return query === this.toLower(item);
   }
 
   toLower(input: any): string {

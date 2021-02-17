@@ -17,7 +17,7 @@
            type="text"/>
   </mat-chip-list>
   <mat-autocomplete #auto (optionSelected)="select($event)">
-    <mat-option *ngFor="let option of helper?.filtered$ | async" [value]="option.value">
+    <mat-option *ngFor="let option of helper?.filtered$ | async" [value]="option">
       <span>{{option.label}}</span>
     </mat-option>
   </mat-autocomplete>

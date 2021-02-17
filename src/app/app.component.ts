@@ -36,7 +36,8 @@ export class AppComponent implements OnInit {
     {label: 'label b', value: 'value b'},
     {label: 'label c', value: 'value c'}
   ]).pipe(
-    map(items => items.filter(it => it.label.indexOf(value) > -1))
+    map(items => items.filter(it => it.label.indexOf(value) > -1)),
+    delay(100)
   );
 
   ngOnInit(): void {

@@ -2,7 +2,7 @@ import {AbstractComboboxHelper} from './abstract-combobox-helper';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 import {map, mergeMap, scan, shareReplay, startWith, take, withLatestFrom} from 'rxjs/operators';
-import {Observable, Subject} from 'rxjs';
+import {combineLatest, Observable, Subject} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
 
@@ -19,7 +19,7 @@ export class ValidatedMultiValueHelper extends AbstractComboboxHelper {
     this.store$ = this.outerControl.valueChanges
       .pipe(
         startWith(this.outerControl.value),
-        withLatestFrom(this.items$),
+        val$ => combineLatest([val$, this.items$]),
         map(([values, items]: any[]) => values.map(value => items.find(item => item.value === value) ||
           (value?.value && value?.label ? value : {value, label: value}))
         ),
