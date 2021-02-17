@@ -1,9 +1,9 @@
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
-import {Observable, of, Subscription} from 'rxjs';
+import {combineLatest, Observable, of, Subscription} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
-import {map, mergeMap, shareReplay, startWith, withLatestFrom} from 'rxjs/operators';
+import {map, mergeMap, shareReplay, startWith} from 'rxjs/operators';
 
 export abstract class AbstractComboboxHelper {
 
@@ -58,10 +58,8 @@ export abstract class AbstractComboboxHelper {
   }
 
   setFilteredItems(): Observable<{ label: string, value: any }[]> {
-    return this.innerControl.valueChanges
+    return combineLatest([this.innerControl.valueChanges.pipe(startWith('')), this.items$])
       .pipe(
-        startWith(''),
-        withLatestFrom(this.items$),
         map(([value, items]: any) => this.isFiltered ? items : items
           .filter(item => {
             const val = `${!value ? '' : value}`;

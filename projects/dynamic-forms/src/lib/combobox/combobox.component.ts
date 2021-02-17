@@ -56,7 +56,7 @@ export class ComboboxComponent implements OnChanges, OnDestroy {
     }
     const sub = this.innerControl.touched$
       .pipe(filter(touched => touched))
-      .subscribe(touched => this.control.markAsTouched());
+      .subscribe(touched => this.control?.markAsTouched());
     this.helper.subscriptions.push(sub);
   }
 

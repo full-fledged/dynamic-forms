@@ -21,7 +21,7 @@ export class ValidatedMultiValueHelper extends AbstractComboboxHelper {
         startWith(this.outerControl.value),
         withLatestFrom(this.items$),
         map(([values, items]: any[]) => values.map(value => items.find(item => item.value === value) ||
-          (value?.value && value?.label ? value : {value, label: value}))
+          (value.value && value.label ? value : {value, label: value}))
         ),
         map(items => !!items ?
           {type: 'SET', items, emit: false} :
