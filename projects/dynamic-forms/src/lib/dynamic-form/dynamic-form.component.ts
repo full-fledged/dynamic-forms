@@ -31,8 +31,8 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
   @Input() config: DynamicField[];
   @Input() buttonText = 'Opslaan';
   @Input() submit$: Observable<void>;
+  // tslint:disable-next-line:no-output-native
   @Output() submit = new EventEmitter();
-  title: string;
   public formGroup: FormGroup;
   public invalid$: Observable<boolean>;
   private patcher$ = of({});
