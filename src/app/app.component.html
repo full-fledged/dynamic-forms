@@ -3,7 +3,7 @@
 </mat-toolbar>
 
 <div class="container mb-3">
-  <mat-tab-group animationDuration="0ms">
+  <mat-tab-group animationDuration="0ms" [selectedIndex]="2">
     <mat-tab label="Multiple forms">
 
       <ff-combobox [items$]="blaItems" label="moi" id="123123" [control]="ctrl">
@@ -48,15 +48,15 @@
       <h1 class="my-3">List and combobox, value: {{testControl.value}}</h1>
 
       validated multi value
-      <ff-combobox label="Label value items" [helperClass]="ValidatedMultiValueHelper" [control]="multiValuedControl"
+      <ff-combobox label="Label value items" [helperClass]="ValidatedMultiValueHelper" [control]="multiValuedValidatedControl"
                    [items$]="standardItems$"></ff-combobox>
 
       non validated multi value
-      <ff-combobox label="Label value items" [multi]="true" [validate]="false"
+      <ff-combobox label="Label value items" [multi]="true" [validate]="false" [items$]="standardItems$"
                    [control]="multiValuedControl"></ff-combobox>
 
       validated single value
-      <ff-combobox label="Label value items" [items$]="standardItems$" [control]="testControl"></ff-combobox>
+      <ff-combobox label="Label value items" [items$]="standardItems$" [control]="testValidatedControl"></ff-combobox>
 
       non validated single value
       <ff-combobox label="Label value items" [validate]="false" [items$]="standardItems$"

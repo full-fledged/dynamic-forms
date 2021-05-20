@@ -13,7 +13,11 @@ import {MultiFormSubmitter} from './multi-form-submitter';
 })
 export class AppComponent implements OnInit {
   testControl = new FormControl(2);
+  testValidatedControl = new FormControl(2);
+
   multiValuedControl = new FormControl([2]);
+  multiValuedValidatedControl = new FormControl([2]);
+
   control = new FormControl('bla');
   valueLabelControl = new FormControl();
 

@@ -1,7 +1,7 @@
 import {AbstractComboboxHelper} from './abstract-combobox-helper';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
-import {map, mergeMap, scan, shareReplay, startWith, take, withLatestFrom} from 'rxjs/operators';
+import {map, scan, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {combineLatest, Observable, Subject} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
@@ -27,7 +27,7 @@ export class ValidatedMultiValueHelper extends AbstractComboboxHelper {
           {type: 'SET', items, emit: false} :
           {type: 'SET', items: [], emit: false}
         ),
-        mergeMap(action => this.dispatcher$.pipe(startWith(action))),
+        switchMap(action => this.dispatcher$.pipe(startWith(action))),
         scan((state, value) => this.reduce(state, value), {items: []} as any),
         shareReplay(1),
       );
@@ -35,14 +35,14 @@ export class ValidatedMultiValueHelper extends AbstractComboboxHelper {
     const sub = this.store$
       .subscribe(store => {
         const values = store.items.map(item => item.value);
-        this.outerControl.setValue(values, {emitEvent: store.emit});
+        this.outerControl.setValue(values, {emitEvent: store.emit, onlySelf: !store.emit});
       });
 
     this.subscriptions.push(sub);
   }
 
   addValue(event: MatChipInputEvent) {
-    const input = event.input;
+    const input = event.chipInput?.inputElement;
     if (input) {
       input.value = '';
     }
@@ -54,10 +54,7 @@ export class ValidatedMultiValueHelper extends AbstractComboboxHelper {
   }
 
   select(event: MatAutocompleteActivatedEvent, inputElement: ElementRef<HTMLInputElement>) {
-    const item = {
-      label: event.option.getLabel(),
-      value: event.option.value
-    };
+    const item = event.option.value;
     this.dispatcher$.next({type: 'ADD', item, emit: true});
     this.innerControl.setValue(null);
     inputElement.nativeElement.value = '';

@@ -1,7 +1,7 @@
 import {AbstractComboboxHelper} from './abstract-combobox-helper';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
-import {map, mergeMap, scan, shareReplay, startWith, take, withLatestFrom} from 'rxjs/operators';
+import {map, scan, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {combineLatest, Observable, Subject} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
@@ -24,7 +24,7 @@ export class ValidatedSingleValueHelper extends AbstractComboboxHelper {
           (value?.value && value?.label ? value : {value, label: value})
         ),
         map(item => !!item ? {type: 'SET', item, emit: false} : {type: 'REMOVE', emit: false}),
-        mergeMap(action => this.dispatcher$.pipe(startWith(action))),
+        switchMap(action => this.dispatcher$.pipe(startWith(action))),
         scan((state, value) => this.reduce(state, value), {items: []} as any),
         shareReplay(1),
       );
@@ -49,10 +49,7 @@ export class ValidatedSingleValueHelper extends AbstractComboboxHelper {
   }
 
   select(event: MatAutocompleteActivatedEvent, inputElement: ElementRef<HTMLInputElement>) {
-    const item = {
-      label: event.option.getLabel(),
-      value: event.option.value
-    };
+    const item = event.option.value;
     this.innerControl.setValue(null);
     inputElement.nativeElement.value = '';
     this.dispatcher$.next({type: 'SET', item, emit: true});

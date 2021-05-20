@@ -1,8 +1,8 @@
 import {AbstractComboboxHelper} from './abstract-combobox-helper';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
-import {map, scan, shareReplay, startWith} from 'rxjs/operators';
-import {merge, Observable, Subject} from 'rxjs';
+import {map, scan, shareReplay, startWith, switchMap} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
 
@@ -23,15 +23,15 @@ export class NonValidatedSingleValueHelper extends AbstractComboboxHelper {
           {type: 'REMOVE', emit: false} :
           {type: 'SET', item: {value, label: value}, emit: false}
         ),
-        action$ => merge(action$, this.dispatcher$),
+        switchMap(action => this.dispatcher$.pipe(startWith(action))),
         scan((state, value) => this.reduce(state, value), {items: []} as any),
         shareReplay(1),
       );
 
     const sub = this.store$
-      .subscribe(items => {
-        const values = items.items.map(item => item.value);
-        this.outerControl.setValue(values[0], {emitEvent: items.emit});
+      .subscribe(store => {
+        const values = store.items.map(item => item.value);
+        this.outerControl.setValue(values[0], {emitEvent: store.emit});
       });
     this.subscriptions.push(sub);
   }
@@ -54,7 +54,7 @@ export class NonValidatedSingleValueHelper extends AbstractComboboxHelper {
   }
 
   select(event: MatAutocompleteActivatedEvent, inputElement: ElementRef<HTMLInputElement>) {
-    const item = {value: event.option.value, label: event.option.value};
+    const item = event.option.value;
     this.dispatcher$.next({type: 'SET', item, emit: true});
     this.innerControl.setValue(null);
     inputElement.nativeElement.value = '';
