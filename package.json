@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build dynamic-forms --prod",
-    "publish": "ng build dynamic-forms --prod && npm publish ./dist/full-fledged/dynamic-forms --access public"
+    "publish": "ng build dynamic-forms --configuration production && npm publish ./dist/full-fledged/dynamic-forms --access public"
   },
   "private": true,
   "dependencies": {
