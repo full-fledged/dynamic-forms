@@ -3,7 +3,7 @@ import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 import {combineLatest, Observable, of, Subscription} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
-import {map, mergeMap, shareReplay, startWith} from 'rxjs/operators';
+import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 
 export abstract class AbstractComboboxHelper {
 
@@ -41,7 +41,7 @@ export abstract class AbstractComboboxHelper {
       return this.innerControl.valueChanges
         .pipe(
           startWith(this.innerControl.value),
-          mergeMap(value => items$(value) || of([])),
+          switchMap(value => items$(value) || of([])),
           map((items: any) => (items || [])
             .map(item => !item?.label && !item?.value ? {label: item, value: item} : item)
           ),
