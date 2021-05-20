@@ -128,6 +128,7 @@ export const DYNAMIC_FORM: DynamicField[] = [
     name: 'type2',
     label: 'Combobox type',
     type: 'combobox',
+    validators: [Validators.required],
     value: 1,
     items$: of([
       {label: 'once', value: 1},
