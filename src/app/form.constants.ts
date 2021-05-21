@@ -11,7 +11,7 @@ export const VALUE_LABEL_ITEMS$ = of([
   {value: 5, label: 'Item 5'},
   {value: 6, label: 'Item 6'},
   {value: 7, label: 'Item 7'},
-]).pipe(delay(5000));
+]).pipe(delay(3000));
 
 export const STANDARD_ITEMS$ = of([
   'item1',

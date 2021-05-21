@@ -23,7 +23,7 @@ export class ValidatedSingleValueHelper extends AbstractComboboxHelper {
         map(([value, items]: any[]) => items?.find(item => item?.value === value) ||
           (value?.value && value?.label ? value : {value, label: value})
         ),
-        map(item => !!item ? {type: 'SET', item, emit: false} : {type: 'REMOVE', emit: false}),
+        map(item => !!item.value ? {type: 'SET', item, emit: false} : {type: 'REMOVE', emit: false}),
         switchMap(action => this.dispatcher$.pipe(startWith(action))),
         scan((state, value) => this.reduce(state, value), {items: []} as any),
         shareReplay(1),

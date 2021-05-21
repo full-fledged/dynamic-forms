@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   ]).pipe(
     map(items => items.filter(it => it.label.indexOf(value) > -1)),
     delay(100)
-  );
+  )
 
   ngOnInit(): void {
     this.control.setValue('item1');
@@ -59,6 +59,10 @@ export class AppComponent implements OnInit {
         this.ctrl.setValue({label: 'label b', value: 'value b'});
         this.testControl.setValue(6);
         this.multiValuedControl.setValue([2, 6]);
+
+        this.testValidatedControl.setValue(null);
+
+        this.multiValuedValidatedControl.setValue(null);
       });
   }
 
