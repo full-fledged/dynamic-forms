@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build dynamic-forms --configuration production",
-    "publish": "ng build dynamic-forms --configuration production && npm publish ./dist/full-fledged/dynamic-forms --access public"
+    "build": "ng build dynamic-forms --configuration production && node remove-pre-publish-only-script.js",
+    "publish": "ng build dynamic-forms --configuration production && node remove-pre-publish-only-script.js && npm publish ./dist/full-fledged/dynamic-forms --access public"
   },
   "private": true,
   "dependencies": {
