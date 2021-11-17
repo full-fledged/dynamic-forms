@@ -78,11 +78,7 @@ export const DYNAMIC_FORM: DynamicField[] = [
     items$: VALUE_LABEL_ITEMS$,
     extra: {
       multi: true
-    },
-    validators: [
-      Validators.required,
-      Validators.email
-    ]
+    }
   },
   {
     name: 'type',
@@ -106,7 +102,6 @@ export const DYNAMIC_FORM: DynamicField[] = [
   {
     name: 'cron',
     label: 'Cron: ',
-    validators: [Validators.required],
     activators: [
       {control: 'type', condition: 'scheduled'}
     ]
@@ -114,7 +109,6 @@ export const DYNAMIC_FORM: DynamicField[] = [
   {
     name: 'email',
     label: 'E-mail: ',
-    validators: [Validators.required, Validators.email, Validators.minLength(7)],
   },
   {
     name: 'description',

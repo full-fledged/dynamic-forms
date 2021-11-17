@@ -16,7 +16,7 @@ import {map, shareReplay, startWith, take} from 'rxjs/operators';
 import {DynamicField} from './dynamic-field.model';
 import {FF_DATA_TYPE_MAPPING, FF_DYNAMIC_FIELD_TYPES} from './dynamic-form-inject-tokens';
 import {NgCommonsUtils} from '../utils/ng-commons.utils';
-import * as _merge from 'deepmerge';
+import {deepmerge} from './utils/deepmerge';
 
 
 @Component({
@@ -100,9 +100,8 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     this.patcher$
       .pipe(take(1))
       .subscribe(original => {
-        const merge = _merge;
         const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
-        this.submit.emit(merge(original, this.value, {arrayMerge: overwriteMerge}));
+        this.submit.emit(deepmerge(original, this.value, {arrayMerge: overwriteMerge}));
       });
   }
 

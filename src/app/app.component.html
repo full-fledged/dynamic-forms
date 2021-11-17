@@ -30,12 +30,11 @@
     </mat-tab>
     <mat-tab label="Dynamic form">
       <h1 class="my-3">Dynamic form</h1>
-      <ff-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"
-                       [submit$]="submit$"></ff-dynamic-form>
+      <ff-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"></ff-dynamic-form>
 
       <div class="mb-3">
-        <button [disabled]="form.invalid$ | async" mat-raised-button color="primary" (click)="submit$.next()">Submit
-        </button>
+<!--        <button [disabled]="form.invalid$ | async" mat-raised-button color="primary" (click)="submit$.next()">Submit-->
+<!--        </button>-->
         <button mat-raised-button class="ml-2" (click)="patchForm()">patch</button>
       </div>
     </mat-tab>
