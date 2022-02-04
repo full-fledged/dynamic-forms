@@ -12,6 +12,7 @@
            [placeholder]="label"
            matInput/>
     <input #input
+           [disabled]="disabled"
            (matChipInputTokenEnd)="addValue($event)"
            *ngIf="!validate || (items$ | async)?.length"
            [formControl]="innerControl"

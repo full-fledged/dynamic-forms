@@ -20,6 +20,7 @@ export class ComboboxComponent implements OnChanges, OnDestroy {
 
   @Input() items$: Observable<string[] | { value: string, label: string }[]>;
   @Input() control: FormControl;
+  @Input() disabled = false;
 
   @Input() id: string;
   @Input() label: string;
