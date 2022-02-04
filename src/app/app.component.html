@@ -54,7 +54,7 @@
       <ff-combobox label="Label value items" [items$]="standardItems$" [control]="testControl"></ff-combobox>
 
       non validated single value
-      <ff-combobox label="Label value items" [validate]="false" [items$]="standardItems$"
+      <ff-combobox label="Label value items" [validate]="false" [disabled]="true" [items$]="standardItems$"
                    [control]="testControl"></ff-combobox>
       <button mat-raised-button color="primary" (click)="echo()">Log value</button>
 

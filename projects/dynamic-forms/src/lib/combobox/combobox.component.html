@@ -1,5 +1,5 @@
 <mat-form-field class="w-100">
-  <mat-chip-list #chipList>
+  <mat-chip-list #chipList [disabled]="disabled">
     <mat-chip (removed)="removeValue(item)" *ngFor="let item of (helper?.store$ | async)?.items">
       <span>{{item.label}}</span>
       <mat-icon matChipRemove>
@@ -12,7 +12,6 @@
            [placeholder]="label"
            matInput/>
     <input #input
-           [disabled]="disabled"
            (matChipInputTokenEnd)="addValue($event)"
            *ngIf="!validate || (items$ | async)?.length"
            [formControl]="innerControl"
