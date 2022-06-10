@@ -1,20 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output,
-  QueryList,
-  ViewChildren,
-  ViewContainerRef
-} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnChanges, OnDestroy, Output} from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {Observable, of, Subscription} from 'rxjs';
 import {map, shareReplay, startWith, take} from 'rxjs/operators';
 import {DynamicField} from './dynamic-field.model';
-import {FF_DATA_TYPE_MAPPING, FF_DYNAMIC_FIELD_TYPES} from './dynamic-form-inject-tokens';
+import {FF_DATA_TYPE_MAPPING} from './dynamic-form-inject-tokens';
 import {NgCommonsUtils} from '../utils/ng-commons.utils';
 import {deepmerge} from './utils/deepmerge';
 
@@ -25,8 +14,6 @@ import {deepmerge} from './utils/deepmerge';
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnChanges, OnDestroy {
-
-  @ViewChildren('column', {read: ViewContainerRef}) columns: QueryList<any>;
 
   @Input() config: DynamicField[];
   @Input() buttonText = 'Opslaan';
@@ -44,7 +31,6 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
 
   constructor(
     @Inject(FF_DATA_TYPE_MAPPING) private dataTypeMapping: any,
-    @Inject(FF_DYNAMIC_FIELD_TYPES) private fieldTypes: any
   ) {
   }
 

@@ -15,7 +15,6 @@ export class DynamicFieldDirective implements OnInit {
 
   constructor(
     @Inject(FF_DYNAMIC_FIELD_TYPES) private fieldTypes: DataTypeMappingModel,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef
   ) {
   }
@@ -24,8 +23,7 @@ export class DynamicFieldDirective implements OnInit {
     const visible$ = this.isVisible();
     const control = !this.ffDynamicField.name ? null : this.ffDynamicFieldFormGroup.controls[this.ffDynamicField.name];
     const componentClass = this.fieldTypes[this.ffDynamicField.type] || this.fieldTypes.text;
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
-    const component = this.viewContainerRef.createComponent<AbstractDynamicFieldComponent>(componentFactory);
+    const component = this.viewContainerRef.createComponent<AbstractDynamicFieldComponent>(componentClass);
 
     if (!!control) {
       this.setControllerUpdates(visible$, control, component);
