@@ -1,7 +1,7 @@
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 import {combineLatest, Observable, Subscription} from 'rxjs';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
 import {map, shareReplay, startWith} from 'rxjs/operators';
 
@@ -10,14 +10,14 @@ export abstract class AbstractComboboxHelper {
   store$: Observable<{ emit: boolean, items: { value: any, label: any }[] }>;
   subscriptions: Subscription[] = [];
 
-  outerControl: FormControl;
-  innerControl: FormControl;
+  outerControl: UntypedFormControl;
+  innerControl: UntypedFormControl;
 
   filtered$: Observable<{ value: any, label: any }[]>;
   items$: Observable<{ value: any, label: any }[]>;
 
-  protected constructor(outerControl: FormControl,
-                        innerControl: FormControl,
+  protected constructor(outerControl: UntypedFormControl,
+                        innerControl: UntypedFormControl,
                         items$: Observable<{ value: any, label: any }[]>) {
     this.outerControl = outerControl;
     this.innerControl = innerControl;

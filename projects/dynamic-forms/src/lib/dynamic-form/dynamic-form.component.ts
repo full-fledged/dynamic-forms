@@ -10,7 +10,7 @@ import {
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {Observable, of, Subscription} from 'rxjs';
 import {map, shareReplay, startWith, take} from 'rxjs/operators';
 import {DynamicField} from './dynamic-field.model';
@@ -33,7 +33,7 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
   @Input() submit$: Observable<void>;
   @Output() submit = new EventEmitter();
   title: string;
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
   public invalid$: Observable<boolean>;
   private patcher$ = of({});
   private subscriptions: Subscription[] = [];
@@ -68,9 +68,9 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     const formObject: any = this.config
       .reduce((state, field) => ({
         ...state,
-        [field.name]: new FormControl(field.value, field.validators || [])
+        [field.name]: new UntypedFormControl(field.value, field.validators || [])
       }), {});
-    this.formGroup = new FormGroup(formObject);
+    this.formGroup = new UntypedFormGroup(formObject);
     const sub1 = this.patcher$
       .subscribe(value => {
         if (!value) {

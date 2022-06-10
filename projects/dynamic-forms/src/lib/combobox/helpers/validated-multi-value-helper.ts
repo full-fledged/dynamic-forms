@@ -3,15 +3,15 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 import {map, scan, shareReplay, startWith, take} from 'rxjs/operators';
 import {combineLatest, merge, Observable, Subject} from 'rxjs';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
 
 export class ValidatedMultiValueHelper extends AbstractComboboxHelper {
 
   dispatcher$ = new Subject();
 
-  constructor(outerControl: FormControl,
-              innerControl: FormControl,
+  constructor(outerControl: UntypedFormControl,
+              innerControl: UntypedFormControl,
               items$: Observable<{ value: any, label: any }[]>) {
     super(outerControl, innerControl, items$);
 

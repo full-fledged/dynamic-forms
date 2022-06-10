@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DYNAMIC_FORM, STANDARD_ITEMS$, VALUE_LABEL_ITEMS$} from './form.constants';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {of, Subject} from 'rxjs';
 import {delay, startWith} from 'rxjs/operators';
 import {ValidatedMultiValueHelper} from 'projects/dynamic-forms/src/public-api';
@@ -12,10 +12,10 @@ import {MultiFormSubmitter} from './multi-form-submitter';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  testControl = new FormControl(2);
-  multiValuedControl = new FormControl([2]);
-  control = new FormControl('bla');
-  valueLabelControl = new FormControl();
+  testControl = new UntypedFormControl(2);
+  multiValuedControl = new UntypedFormControl([2]);
+  control = new UntypedFormControl('bla');
+  valueLabelControl = new UntypedFormControl();
 
   standardItems$ = VALUE_LABEL_ITEMS$;
 

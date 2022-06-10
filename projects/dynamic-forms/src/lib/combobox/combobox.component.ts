@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnDestroy, Type, ViewChild} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {filter, map, shareReplay} from 'rxjs/operators';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
@@ -19,7 +19,7 @@ import {ExtendedFormControl} from './extended.form-control';
 export class ComboboxComponent implements OnChanges, OnDestroy {
 
   @Input() items$: Observable<string[] | { value: string, label: string }[]>;
-  @Input() control: FormControl;
+  @Input() control: UntypedFormControl;
   @Input() disabled = false;
 
   @Input() id: string;
