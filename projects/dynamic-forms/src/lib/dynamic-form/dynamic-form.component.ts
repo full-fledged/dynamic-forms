@@ -31,8 +31,12 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
   @Input() config: DynamicField[];
   @Input() buttonText = 'Opslaan';
   @Input() submit$: Observable<void>;
+
+  // tslint:disable-next-line:no-output-native
   @Output() submit = new EventEmitter();
-  title: string;
+
+  public title: string;
+  public valid = true;
   public formGroup: UntypedFormGroup;
   public invalid$: Observable<boolean>;
   private patcher$ = of({});
@@ -85,12 +89,20 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
       .subscribe(() => this.save());
     this.subscriptions.push(sub2);
     this.invalid$ = this.formGroup.statusChanges.pipe(map(status => status === 'INVALID'));
+
+    const sub3 = this.invalid$
+      .subscribe(val => this.valid = !val);
+    this.subscriptions.push(sub3);
   }
 
   ngOnDestroy(): void {
     this.subscriptions
       .filter(sub => !!sub && typeof sub.unsubscribe === 'function')
       .forEach(sub => sub.unsubscribe());
+  }
+
+  markAllAsTouched() {
+    this.formGroup.markAllAsTouched();
   }
 
   save(event?: any) {
