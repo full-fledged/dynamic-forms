@@ -15,6 +15,7 @@
                              (submit)="config.submit($event)">
             </ff-dynamic-form>
           </div>
+
           <div class="button-wrapper">
             <button mat-raised-button (click)="removeForm(i)">
               delete
@@ -23,7 +24,7 @@
         </div>
       </ng-container>
 
-      <div class="mb-3">
+      <div class="mb-3 row">
         <button mat-raised-button (click)="submitMulti()" class="mr-2">Submit all</button>
         <button mat-raised-button (click)="addForm()">Add form</button>
       </div>

@@ -2,8 +2,8 @@ import {Component, ElementRef, Input, OnChanges, OnDestroy, Type, ViewChild} fro
 import {Observable, of} from 'rxjs';
 import {UntypedFormControl} from '@angular/forms';
 import {filter, map, shareReplay} from 'rxjs/operators';
-import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
-import {MatChipInputEvent} from '@angular/material/chips';
+import {MatLegacyAutocompleteActivatedEvent as MatAutocompleteActivatedEvent} from '@angular/material/legacy-autocomplete';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import {AbstractComboboxHelper} from './helpers/abstract-combobox-helper';
 import {ValidatedSingleValueHelper} from './helpers/validated-single-value-helper';
 import {NonValidatedSingleValueHelper} from './helpers/non-validated-single-value-helper';
@@ -76,7 +76,7 @@ export class ComboboxComponent implements OnChanges, OnDestroy {
     this.helper.removeValue(item);
   }
 
-  addValue(event: MatChipInputEvent) {
+  addValue(event) {
     this.helper.addValue(event);
   }
 }

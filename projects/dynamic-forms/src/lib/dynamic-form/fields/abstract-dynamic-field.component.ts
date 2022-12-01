@@ -1,11 +1,11 @@
-import {AbstractControl, UntypedFormGroup} from '@angular/forms';
+import {AbstractControl, FormControl, UntypedFormGroup} from '@angular/forms';
 import {DynamicField} from '../dynamic-field.model';
 import {Observable} from 'rxjs';
 
 export class AbstractDynamicFieldComponent {
 
     field: DynamicField;
-    control: AbstractControl;
+    control: FormControl;
     visible$: Observable<boolean>;
     formGroup: UntypedFormGroup;
 

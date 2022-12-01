@@ -1,15 +1,8 @@
 import {NgModule} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
-import {MatChipsModule} from '@angular/material/chips';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatButtonModule} from '@angular/material/button';
 import {DynamicFieldDirective} from './dynamic-form/dynamic-field.directive';
 import {SelectComponent} from './dynamic-form/fields/select/select.component';
 import {TextAreaComponent} from './dynamic-form/fields/text-area/text-area.component';
@@ -28,6 +21,13 @@ import {DYNAMIC_FORMS_DATA_TYPE_MAPPING} from './dynamic-form/ng-common-datatype
 import {DYNAMIC_FORMS_FIELD_TYPES} from './dynamic-form/ng-common-dynamic-field-types';
 import {DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING} from './dynamic-form/ng-common-error-message-mapping';
 import {ComboboxComponent} from './combobox/combobox.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [

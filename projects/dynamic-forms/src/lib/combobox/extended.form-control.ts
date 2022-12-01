@@ -1,8 +1,8 @@
-import {AbstractControlOptions, AsyncValidatorFn, UntypedFormControl, ValidatorFn} from '@angular/forms';
+import {AbstractControlOptions, AsyncValidatorFn, FormControl, ValidatorFn} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 
-export class ExtendedFormControl extends UntypedFormControl {
+export class ExtendedFormControl extends FormControl {
 
   // tslint:disable-next-line:variable-name
   private _touched$: Subject<boolean> = new Subject<boolean>();
