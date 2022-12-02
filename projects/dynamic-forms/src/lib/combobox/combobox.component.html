@@ -1,11 +1,11 @@
 <mat-form-field class="w-100">
   <mat-chip-grid #chipList [disabled]="disabled">
-    <mat-chip-row (removed)="removeValue(item)" *ngFor="let item of (helper?.store$ | async)?.items">
+    <mat-chip (removed)="removeValue(item)" *ngFor="let item of (helper?.store$ | async)?.items">
       <span>{{item.label}}</span>
       <mat-icon matChipRemove>
         close
       </mat-icon>
-    </mat-chip-row>
+    </mat-chip>
     <input *ngIf="validate && !(items$ | async)?.length"
            [disabled]="true"
            [matChipInputFor]="chipList"
