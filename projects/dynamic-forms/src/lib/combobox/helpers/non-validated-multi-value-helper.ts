@@ -1,10 +1,10 @@
 import {AbstractComboboxHelper} from './abstract-combobox-helper';
-import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
-import {MatLegacyAutocompleteActivatedEvent as MatAutocompleteActivatedEvent} from '@angular/material/legacy-autocomplete';
 import {map, scan, shareReplay, startWith} from 'rxjs/operators';
 import {merge, Observable, Subject} from 'rxjs';
 import {UntypedFormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 
 export class NonValidatedMultiValueHelper extends AbstractComboboxHelper {
 

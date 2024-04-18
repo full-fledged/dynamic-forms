@@ -1,9 +1,9 @@
-import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import {MatLegacyAutocompleteActivatedEvent as MatAutocompleteActivatedEvent} from '@angular/material/legacy-autocomplete';
 import {combineLatest, Observable, Subscription} from 'rxjs';
 import {UntypedFormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
 import {map, shareReplay, startWith} from 'rxjs/operators';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 export abstract class AbstractComboboxHelper {
 
