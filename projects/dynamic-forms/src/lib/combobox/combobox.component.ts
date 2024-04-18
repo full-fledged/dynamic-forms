@@ -2,14 +2,13 @@ import {Component, ElementRef, Input, OnChanges, OnDestroy, Type, ViewChild} fro
 import {Observable, of} from 'rxjs';
 import {UntypedFormControl} from '@angular/forms';
 import {filter, map, shareReplay} from 'rxjs/operators';
-import {MatLegacyAutocompleteActivatedEvent as MatAutocompleteActivatedEvent} from '@angular/material/legacy-autocomplete';
-import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import {AbstractComboboxHelper} from './helpers/abstract-combobox-helper';
 import {ValidatedSingleValueHelper} from './helpers/validated-single-value-helper';
 import {NonValidatedSingleValueHelper} from './helpers/non-validated-single-value-helper';
 import {NonValidatedMultiValueHelper} from './helpers/non-validated-multi-value-helper';
 import {ValidatedMultiValueHelper} from './helpers/validated-multi-value-helper';
 import {ExtendedFormControl} from './extended.form-control';
+import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'ff-combobox',

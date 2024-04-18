@@ -1,9 +1,9 @@
-import {MatLegacyAutocompleteActivatedEvent as MatAutocompleteActivatedEvent} from '@angular/material/legacy-autocomplete';
 import {combineLatest, Observable, Subscription} from 'rxjs';
 import {UntypedFormControl} from '@angular/forms';
 import {ElementRef} from '@angular/core';
 import {map, shareReplay, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 
 export abstract class AbstractComboboxHelper {
 
@@ -30,7 +30,9 @@ export abstract class AbstractComboboxHelper {
 
   abstract removeValue(item: { label: any, value: any });
 
-  abstract select(event: MatAutocompleteActivatedEvent | { option: { value: any } }, inputElement: ElementRef<HTMLInputElement>);
+  abstract select(event: MatAutocompleteActivatedEvent | {
+    option: { value: any }
+  }, inputElement: ElementRef<HTMLInputElement>);
 
   setFilteredItems(): Observable<{ label: string, value: any }[]> {
     return combineLatest([this.innerControl.valueChanges.pipe(startWith('')), this.items$])
