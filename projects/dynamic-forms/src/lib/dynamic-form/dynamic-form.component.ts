@@ -112,8 +112,8 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
         return {config, key, value: this.formGroup.controls[key].value};
       })
       .map(({config, key, value}) => {
-        const mappedValue = !!this.dataTypeMapping[config.dataType] ?
-          this.dataTypeMapping[config.dataType](value) :
+        const mappedValue = !!this.dataTypeMapping[config?.dataType] ?
+          this.dataTypeMapping[config?.dataType](value) :
           value;
         return {key, value: mappedValue};
       })
