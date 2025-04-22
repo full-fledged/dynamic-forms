@@ -7,9 +7,10 @@ import {ValidatedMultiValueHelper} from 'projects/dynamic-forms/src/public-api';
 import {MultiFormSubmitter} from './multi-form-submitter';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   testControl = new UntypedFormControl(2);

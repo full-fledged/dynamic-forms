@@ -11,9 +11,10 @@ import {ExtendedFormControl} from './extended.form-control';
 import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
 
 @Component({
-  selector: 'ff-combobox',
-  templateUrl: './combobox.component.html',
-  styleUrls: ['./combobox.component.scss']
+    selector: 'ff-combobox',
+    templateUrl: './combobox.component.html',
+    styleUrls: ['./combobox.component.scss'],
+    standalone: false
 })
 export class ComboboxComponent implements OnChanges, OnDestroy {
 

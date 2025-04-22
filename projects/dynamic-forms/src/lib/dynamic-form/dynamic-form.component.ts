@@ -9,9 +9,10 @@ import {deepmerge} from './utils/deepmerge';
 
 
 @Component({
-  templateUrl: './dynamic-form.component.html',
-  selector: 'ff-dynamic-form',
-  styleUrls: ['./dynamic-form.component.scss']
+    templateUrl: './dynamic-form.component.html',
+    selector: 'ff-dynamic-form',
+    styleUrls: ['./dynamic-form.component.scss'],
+    standalone: false
 })
 export class DynamicFormComponent implements OnChanges, OnDestroy {
 

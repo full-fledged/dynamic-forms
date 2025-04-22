@@ -3,8 +3,9 @@ import {AbstractDynamicFieldComponent} from '../abstract-dynamic-field.component
 import {FF_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
 
 @Component({
-  templateUrl: './combobox-field.component.html',
-  styleUrls: ['./combobox-field.component.scss']
+    templateUrl: './combobox-field.component.html',
+    styleUrls: ['./combobox-field.component.scss'],
+    standalone: false
 })
 export class ComboboxFieldComponent extends AbstractDynamicFieldComponent {
 

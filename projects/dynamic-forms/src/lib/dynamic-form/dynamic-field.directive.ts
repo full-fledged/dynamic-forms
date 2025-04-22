@@ -6,7 +6,8 @@ import {AbstractDynamicFieldComponent} from './fields/abstract-dynamic-field.com
 import {DataTypeMappingModel} from './data-type-mapping.model';
 
 @Directive({
-  selector: '[ffDynamicField]'
+    selector: '[ffDynamicField]',
+    standalone: false
 })
 export class DynamicFieldDirective implements OnInit {
 

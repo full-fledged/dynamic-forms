@@ -3,8 +3,9 @@ import {AbstractDynamicFieldComponent} from '../abstract-dynamic-field.component
 import {FF_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
 
 @Component({
-  templateUrl: './text-area.component.html',
-  styleUrls: ['./text-area.component.scss']
+    templateUrl: './text-area.component.html',
+    styleUrls: ['./text-area.component.scss'],
+    standalone: false
 })
 export class TextAreaComponent extends AbstractDynamicFieldComponent {
 

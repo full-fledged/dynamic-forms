@@ -3,7 +3,8 @@ import {AbstractDynamicFieldComponent} from '../abstract-dynamic-field.component
 import {FF_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
 
 @Component({
-  templateUrl: './hidden.component.html'
+    templateUrl: './hidden.component.html',
+    standalone: false
 })
 export class HiddenComponent extends AbstractDynamicFieldComponent {
 

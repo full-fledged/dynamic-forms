@@ -3,8 +3,9 @@ import {AbstractDynamicFieldComponent} from '../abstract-dynamic-field.component
 import {FF_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
 
 @Component({
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
+    standalone: false
 })
 export class SelectComponent extends AbstractDynamicFieldComponent {
 
