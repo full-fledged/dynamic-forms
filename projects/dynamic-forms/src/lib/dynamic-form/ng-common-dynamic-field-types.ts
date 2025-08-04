@@ -7,8 +7,9 @@ import {ComboboxFieldComponent} from './fields/combobox/combobox-field.component
 import {DateFieldComponent} from './fields/date-field/date-field.component';
 import {ToggleComponent} from './fields/toggle/toggle.component';
 import {RadioGroupComponent} from './fields/radio-group/radio-group.component';
+import {FieldTypeMapping} from '../dynamic-forms.module';
 
-export const DYNAMIC_FORMS_FIELD_TYPES = {
+export const DYNAMIC_FORMS_FIELD_TYPES: FieldTypeMapping = {
   title: TitleComponent,
   text: TextFieldComponent,
   select: SelectComponent,

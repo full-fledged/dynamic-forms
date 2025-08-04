@@ -1,4 +1,6 @@
-export const DYNAMIC_FORMS_DATA_TYPE_MAPPING = {
+import {DataTypeMapping} from '../dynamic-forms.module';
+
+export const DYNAMIC_FORMS_DATA_TYPE_MAPPING: DataTypeMapping = {
   number: (value) => {
     const i = parseInt(value, undefined);
     return isNaN(i) ? value : i;

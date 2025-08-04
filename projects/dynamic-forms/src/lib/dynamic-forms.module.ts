@@ -70,21 +70,21 @@ export class DynamicFormsModule {
 }
 
 export interface FieldTypeMapping {
-    [key: string]: AbstractDynamicFieldComponent;
+    [key: string]: typeof AbstractDynamicFieldComponent;
 }
 
 export interface DataTypeMapping {
     [key: string]: (value: any) => any;
 }
 
-export interface ErrorMapping {
+export interface ErrorMessageMapping {
     [key: string]: ((value: any) => string) | string;
 }
 
 export interface DynamicFormsConfig {
-    fieldTypes: FieldTypeMapping | undefined;
-    errorMapping: ErrorMapping | undefined;
-    dataTypeMapping: DataTypeMapping | undefined;
+    fieldTypes?: FieldTypeMapping | undefined;
+    errorMapping?: ErrorMessageMapping | undefined;
+    dataTypeMapping?: DataTypeMapping | undefined;
 }
 
 export function provideDynamicForms(config: DynamicFormsConfig): EnvironmentProviders {
