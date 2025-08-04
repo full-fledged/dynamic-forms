@@ -32,6 +32,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
+import {AbstractDynamicFieldComponent} from './dynamic-form/fields/abstract-dynamic-field.component';
 
 @NgModule({
     imports: [
@@ -68,16 +69,31 @@ import {MatButtonModule} from '@angular/material/button';
 export class DynamicFormsModule {
 }
 
-export function provideDynamicForms(
-    fieldTypes = DYNAMIC_FORMS_FIELD_TYPES,
-    errorMapping = DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING,
-    dataTypeMapping = DYNAMIC_FORMS_DATA_TYPE_MAPPING): EnvironmentProviders {
+export interface FieldTypeMapping {
+    [key: string]: AbstractDynamicFieldComponent;
+}
+
+export interface DataTypeMapping {
+    [key: string]: (value: any) => any;
+}
+
+export interface ErrorMapping {
+    [key: string]: ((value: any) => string) | string;
+}
+
+export interface DynamicFormsConfig {
+    fieldTypes: FieldTypeMapping | undefined;
+    errorMapping: ErrorMapping | undefined;
+    dataTypeMapping: DataTypeMapping | undefined;
+}
+
+export function provideDynamicForms(config: DynamicFormsConfig): EnvironmentProviders {
     return makeEnvironmentProviders([
         {provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-        {provide: FF_DATA_TYPE_MAPPING, useValue: dataTypeMapping},
-        {provide: FF_DYNAMIC_FIELD_TYPES, useValue: fieldTypes},
-        {provide: FF_ERROR_MESSAGE_MAPPING, useValue: errorMapping},
+        {provide: FF_DATA_TYPE_MAPPING, useValue: config.dataTypeMapping || DYNAMIC_FORMS_DATA_TYPE_MAPPING},
+        {provide: FF_DYNAMIC_FIELD_TYPES, useValue: config.fieldTypes || DYNAMIC_FORMS_FIELD_TYPES},
+        {provide: FF_ERROR_MESSAGE_MAPPING, useValue: config.errorMapping || DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING},
     ]);
 }
