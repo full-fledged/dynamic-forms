@@ -1,18 +1,21 @@
 import {Component, EventEmitter, Inject, Input, OnChanges, OnDestroy, Output} from '@angular/core';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Observable, of, Subscription} from 'rxjs';
 import {map, shareReplay, startWith, take} from 'rxjs/operators';
 import {DynamicField} from './dynamic-field.model';
 import {FF_DATA_TYPE_MAPPING} from './dynamic-form-inject-tokens';
 import {NgCommonsUtils} from '../utils/ng-commons.utils';
 import {deepmerge} from './utils/deepmerge';
+import { NgIf, NgFor } from '@angular/common';
+import { DynamicFieldDirective } from './dynamic-field.directive';
+import { MatButton } from '@angular/material/button';
 
 
 @Component({
     templateUrl: './dynamic-form.component.html',
     selector: 'ff-dynamic-form',
     styleUrls: ['./dynamic-form.component.scss'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule  , DynamicFieldDirective, MatButton]
 })
 export class DynamicFormComponent implements OnChanges, OnDestroy {
 

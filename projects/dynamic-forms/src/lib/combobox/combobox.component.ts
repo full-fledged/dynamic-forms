@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnDestroy, Type, ViewChild} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {UntypedFormControl} from '@angular/forms';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {filter, map, shareReplay} from 'rxjs/operators';
 import {AbstractComboboxHelper} from './helpers/abstract-combobox-helper';
 import {ValidatedSingleValueHelper} from './helpers/validated-single-value-helper';
@@ -8,13 +8,18 @@ import {NonValidatedSingleValueHelper} from './helpers/non-validated-single-valu
 import {NonValidatedMultiValueHelper} from './helpers/non-validated-multi-value-helper';
 import {ValidatedMultiValueHelper} from './helpers/validated-multi-value-helper';
 import {ExtendedFormControl} from './extended.form-control';
-import {MatAutocompleteActivatedEvent} from '@angular/material/autocomplete';
+import { MatAutocompleteActivatedEvent, MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatFormField, MatInput, MatSuffix, MatHint } from '@angular/material/input';
+import { MatChipGrid, MatChip, MatChipRemove, MatChipInput } from '@angular/material/chips';
+import { NgFor, NgIf, AsyncPipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatOption } from '@angular/material/select';
 
 @Component({
     selector: 'ff-combobox',
     templateUrl: './combobox.component.html',
     styleUrls: ['./combobox.component.scss'],
-    standalone: false
+    imports: [MatFormField, MatChipGrid, NgFor, MatChip, MatIcon, MatChipRemove, NgIf, MatInput, MatChipInput, FormsModule, MatAutocompleteTrigger, ReactiveFormsModule, MatAutocomplete, MatOption, MatSuffix, MatHint, AsyncPipe]
 })
 export class ComboboxComponent implements OnChanges, OnDestroy {
 

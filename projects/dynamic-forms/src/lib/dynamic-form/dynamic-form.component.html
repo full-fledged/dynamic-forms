@@ -1,12 +1,17 @@
-<form (ngSubmit)="save($event)" *ngIf="formGroup" [formGroup]="formGroup">
-  <ng-container *ngFor="let field of config">
-    <ng-container [ffDynamicFieldFormGroup]="formGroup" [ffDynamicField]="field"></ng-container>
-  </ng-container>
-  <button [class.d-none]="submit$"
-          [disabled]="formGroup?.invalid"
-          color="primary"
-          mat-raised-button
-          type="submit">
-    {{buttonText}}
-  </button>
-</form>
+@if (formGroup) {
+    <form (ngSubmit)="save($event)" [formGroup]="formGroup">
+        @for (field of config; track field) {
+            <ng-container>
+                <ng-container [ffDynamicFieldFormGroup]="formGroup" [ffDynamicField]="field"></ng-container>
+            </ng-container>
+        }
+        <button [class.d-none]="submit$"
+                [disabled]="formGroup?.invalid"
+                color="primary"
+                mat-raised-button
+                type="submit">
+            {{ buttonText }}
+        </button>
+    </form>
+
+}

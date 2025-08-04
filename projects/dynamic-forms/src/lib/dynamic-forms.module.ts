@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {EnvironmentProviders, makeEnvironmentProviders, NgModule} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
@@ -30,46 +30,47 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
-  imports: [
-    MatIconModule,
-    MatChipsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatInputModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    MatSlideToggleModule,
-    MatRadioModule,
-    MatButtonModule
-  ],
-  declarations: [
-    DynamicFieldDirective,
-    SelectComponent,
-    TextAreaComponent,
-    TextFieldComponent,
-    TitleComponent,
-    HiddenComponent,
-    DynamicFormComponent,
-    ComboboxFieldComponent,
-    DateFieldComponent,
-    ToggleComponent,
-    RadioGroupComponent,
-    ComboboxComponent
-  ],
-  exports: [
-    DynamicFormComponent,
-    ComboboxComponent
-  ],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-    {provide: FF_DATA_TYPE_MAPPING, useValue: DYNAMIC_FORMS_DATA_TYPE_MAPPING},
-    {provide: FF_DYNAMIC_FIELD_TYPES, useValue: DYNAMIC_FORMS_FIELD_TYPES},
-    {provide: FF_ERROR_MESSAGE_MAPPING, useValue: DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING}
-  ]
+    imports: [
+        MatIconModule,
+        MatChipsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MatInputModule,
+        MatSelectModule,
+        MatAutocompleteModule,
+        MatDatepickerModule,
+        MatSlideToggleModule,
+        MatRadioModule,
+        MatButtonModule,
+        DynamicFieldDirective,
+        SelectComponent,
+        TextAreaComponent,
+        TextFieldComponent,
+        TitleComponent,
+        HiddenComponent,
+        DynamicFormComponent,
+        ComboboxFieldComponent,
+        DateFieldComponent,
+        ToggleComponent,
+        RadioGroupComponent,
+        ComboboxComponent
+    ],
+    exports: [
+        DynamicFormComponent,
+        ComboboxComponent
+    ],
 })
 export class DynamicFormsModule {
+}
+
+export function provideDynamicForms(): EnvironmentProviders {
+    return makeEnvironmentProviders([
+        { provide: MAT_DATE_LOCALE, useValue: 'nl-NL' },
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+        { provide: FF_DATA_TYPE_MAPPING, useValue: DYNAMIC_FORMS_DATA_TYPE_MAPPING },
+        { provide: FF_DYNAMIC_FIELD_TYPES, useValue: DYNAMIC_FORMS_FIELD_TYPES },
+        { provide: FF_ERROR_MESSAGE_MAPPING, useValue: DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING },
+    ]);
 }

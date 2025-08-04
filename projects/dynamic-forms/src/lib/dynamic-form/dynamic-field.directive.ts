@@ -5,10 +5,7 @@ import {combineLatest, of} from 'rxjs';
 import {AbstractDynamicFieldComponent} from './fields/abstract-dynamic-field.component';
 import {DataTypeMappingModel} from './data-type-mapping.model';
 
-@Directive({
-    selector: '[ffDynamicField]',
-    standalone: false
-})
+@Directive({ selector: '[ffDynamicField]' })
 export class DynamicFieldDirective implements OnInit {
 
   @Input() ffDynamicField;

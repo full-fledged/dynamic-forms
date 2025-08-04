@@ -1,12 +1,12 @@
 {
   "name": "@full-fledged/dynamic-forms",
-  "version": "19.0.1",
+  "version": "20.0.0",
   "peerDependencies": {
-    "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0",
-    "@angular/cdk": "^19.0.0",
-    "@angular/material": "^19.0.0",
-    "@angular/material-moment-adapter": "^19.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/cdk": "^20.0.0",
+    "@angular/material": "^20.0.0",
+    "@angular/material-moment-adapter": "^20.0.0",
     "moment": "^2.29.1"
   },
   "dependencies": {
