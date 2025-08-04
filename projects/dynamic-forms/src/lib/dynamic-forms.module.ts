@@ -16,7 +16,11 @@ import {ToggleComponent} from './dynamic-form/fields/toggle/toggle.component';
 import {RadioGroupComponent} from './dynamic-form/fields/radio-group/radio-group.component';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {FF_DATA_TYPE_MAPPING, FF_DYNAMIC_FIELD_TYPES, FF_ERROR_MESSAGE_MAPPING} from './dynamic-form/dynamic-form-inject-tokens';
+import {
+    FF_DATA_TYPE_MAPPING,
+    FF_DYNAMIC_FIELD_TYPES,
+    FF_ERROR_MESSAGE_MAPPING
+} from './dynamic-form/dynamic-form-inject-tokens';
 import {DYNAMIC_FORMS_DATA_TYPE_MAPPING} from './dynamic-form/ng-common-datatype-mapping';
 import {DYNAMIC_FORMS_FIELD_TYPES} from './dynamic-form/ng-common-dynamic-field-types';
 import {DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING} from './dynamic-form/ng-common-error-message-mapping';
@@ -64,13 +68,16 @@ import {MatButtonModule} from '@angular/material/button';
 export class DynamicFormsModule {
 }
 
-export function provideDynamicForms(): EnvironmentProviders {
+export function provideDynamicForms(
+    fieldTypes = DYNAMIC_FORMS_FIELD_TYPES,
+    errorMapping = DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING,
+    dataTypeMapping = DYNAMIC_FORMS_DATA_TYPE_MAPPING): EnvironmentProviders {
     return makeEnvironmentProviders([
-        { provide: MAT_DATE_LOCALE, useValue: 'nl-NL' },
-        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-        { provide: FF_DATA_TYPE_MAPPING, useValue: DYNAMIC_FORMS_DATA_TYPE_MAPPING },
-        { provide: FF_DYNAMIC_FIELD_TYPES, useValue: DYNAMIC_FORMS_FIELD_TYPES },
-        { provide: FF_ERROR_MESSAGE_MAPPING, useValue: DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING },
+        {provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+        {provide: FF_DATA_TYPE_MAPPING, useValue: dataTypeMapping},
+        {provide: FF_DYNAMIC_FIELD_TYPES, useValue: fieldTypes},
+        {provide: FF_ERROR_MESSAGE_MAPPING, useValue: errorMapping},
     ]);
 }
