@@ -9,7 +9,7 @@ export interface DynamicField {
   dataType?: string;
   validators?: ValidatorFn[];
   activators?: { control: string, condition: ((value: any) => boolean) | any }[];
-  items$?: Observable<string[] | { value: any, label: string }[]>;
+  items$?: Observable<{ value: any, label: string }[]>;
   extra?: any;
   disabled?: boolean;
 }

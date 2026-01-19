@@ -1,13 +1,17 @@
-<div *ngIf="control && (visible$ | async)" class="w-100 mb-3">
-  <ff-combobox [control]="control"
-               [helperClass]="helperClass"
-               [id]="field.name"
-               [items$]="field.items$"
-               [label]="field.label"
-               [multi]="multi"
-               [validate]="validate">
-    <mat-error *ngIf="mapErrors(control) as errors">
-      {{errors.join(', ')}}
-    </mat-error>
-  </ff-combobox>
-</div>
+@if (control && (visible$ | async)) {
+  <div class="w-100 mb-3">
+    <ff-combobox [control]="control"
+      [helperClass]="helperClass"
+      [id]="field.name"
+      [items$]="field.items$"
+      [label]="field.label"
+      [multi]="multi"
+      [validate]="validate">
+      @if (mapErrors(control); as errors) {
+        <mat-error>
+          {{errors.join(', ')}}
+        </mat-error>
+      }
+    </ff-combobox>
+  </div>
+}

@@ -1,39 +1,46 @@
 <mat-form-field class="w-100">
-  <mat-chip-grid #chipList [disabled]="disabled">
-    <mat-chip (removed)="removeValue(item)" *ngFor="let item of (helper?.store$ | async)?.items">
-      <span>{{item.label}}</span>
-      <mat-icon matChipRemove>
-        close
-      </mat-icon>
-    </mat-chip>
-    <input *ngIf="validate && !(items$ | async)?.length"
-           [disabled]="true"
-           [matChipInputFor]="chipList"
-           [placeholder]="label"
-           matInput/>
-    <input #input
-           (matChipInputTokenEnd)="addValue($event)"
-           *ngIf="!validate || (items$ | async)?.length"
-           [formControl]="innerControl"
-           [matAutocomplete]="auto"
-           [matChipInputFor]="chipList"
-           [placeholder]="label"
-           matInput
-           type="text"/>
-  </mat-chip-grid>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
-    <mat-option *ngFor="let option of helper?.filtered$ | async" [value]="option.value">
-      <span>{{option.label}}</span>
-    </mat-option>
-  </mat-autocomplete>
-  <span matSuffix>
+    <mat-chip-grid #chipList [disabled]="disabled">
+        @for (item of (helper?.store$ | async)?.items; track item) {
+            <mat-chip (removed)="removeValue(item)">
+                <span>{{ item.label }}</span>
+                <mat-icon matChipRemove>
+                    close
+                </mat-icon>
+            </mat-chip>
+        } @if (validate && !(items$ | async)?.length) {
+        <input
+                [disabled]="true"
+                [matChipInputFor]="chipList"
+                [placeholder]="label"
+                matInput/>
+    } @if (!validate || (items$ | async)?.length) {
+        <input #input
+               (matChipInputTokenEnd)="addValue($event)"
+               [formControl]="innerControl"
+               [matAutocomplete]="auto"
+               [matChipInputFor]="chipList"
+               [placeholder]="label"
+               matInput
+               type="text"/>
+    }
+    </mat-chip-grid>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
+        @if (helper?.filtered$) {
+            @for (option of helper.filtered$ | async; track option) {
+                <mat-option [value]="option.value">
+                    <span>{{ option.label }}</span>
+                </mat-option>
+            }
+        }
+    </mat-autocomplete>
+    <span matSuffix>
     <ng-content select="[matSuffix]"></ng-content>
   </span>
 
-  <!--  Hack because mat-error doesn't work with mat-autocomplete-->
-  <mat-hint>
+    <!--  Hack because mat-error doesn't work with mat-autocomplete-->
+    <mat-hint>
     <span class="mat-error">
       <ng-content select="mat-error"></ng-content>
     </span>
-  </mat-hint>
+    </mat-hint>
 </mat-form-field>

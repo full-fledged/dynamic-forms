@@ -1,3 +1,5 @@
-<h4 *ngIf="field && (visible$ | async)" class="mb-3">
-  {{field.label}}
-</h4>
+@if (field && (visible$ | async)) {
+  <h4 class="mb-3">
+    {{field.label}}
+  </h4>
+}

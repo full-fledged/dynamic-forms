@@ -6,23 +6,22 @@
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Multiple forms">
       <h1 class="my-3">Multiple forms</h1>
-      <ng-container *ngFor="let config of submitter.items$ | async; let i = index">
+      @for (config of submitter.items$ | async; track config; let i = $index) {
         <div class="form-group-wrapper">
           <div class="form-wrapper">
             <ff-dynamic-form [config]="[{name: 'bla', label: 'bla'}]"
-                             [submit$]="config.submit$"
-                             [patcher$]="config.patcher$"
-                             (submit)="config.submit($event)">
+              [submit$]="config.submit$"
+              [patcher$]="config.patcher$"
+              (submit)="config.submit($event)">
             </ff-dynamic-form>
           </div>
-
           <div class="button-wrapper">
             <button mat-raised-button (click)="removeForm(i)">
               delete
             </button>
           </div>
         </div>
-      </ng-container>
+      }
 
       <div class="mb-3 row">
         <button mat-raised-button (click)="submitMulti()" class="mr-2">Submit all</button>
@@ -34,32 +33,32 @@
       <ff-dynamic-form #form [config]="formConfig" [patcher$]="patcher$" (submit)="submit($event)"></ff-dynamic-form>
 
       <div class="mb-3">
-<!--        <button [disabled]="form.invalid$ | async" mat-raised-button color="primary" (click)="submit$.next()">Submit-->
-<!--        </button>-->
-        <button mat-raised-button class="ml-2" (click)="patchForm()">patch</button>
-      </div>
-    </mat-tab>
-    <mat-tab label="List and combobox">
+        <!--        <button [disabled]="form.invalid$ | async" mat-raised-button color="primary" (click)="submit$.next()">Submit-->
+      <!--        </button>-->
+      <button mat-raised-button class="ml-2" (click)="patchForm()">patch</button>
+    </div>
+  </mat-tab>
+  <mat-tab label="List and combobox">
 
-      <h1 class="my-3">List and combobox, value: {{testControl.value}}</h1>
+    <h1 class="my-3">List and combobox, value: {{testControl.value}}</h1>
 
-      validated multi value
-      <ff-combobox label="Label value items" [helperClass]="ValidatedMultiValueHelper" [control]="multiValuedControl"
-                   [items$]="standardItems$"></ff-combobox>
+    validated multi value
+    <ff-combobox label="Label value items" [helperClass]="ValidatedMultiValueHelper" [control]="multiValuedControl"
+    [items$]="standardItems$"></ff-combobox>
 
-      non validated multi value
-      <ff-combobox label="Label value items" [multi]="true" [validate]="false"
-                   [control]="multiValuedControl"></ff-combobox>
+    non validated multi value
+    <ff-combobox label="Label value items" [multi]="true" [validate]="false"
+    [control]="multiValuedControl"></ff-combobox>
 
-      validated single value
-      <ff-combobox label="Label value items" [items$]="standardItems$" [control]="testControl"></ff-combobox>
+    validated single value
+    <ff-combobox label="Label value items" [items$]="standardItems$" [control]="testControl"></ff-combobox>
 
-      non validated single value
-      <ff-combobox label="Label value items" [validate]="false" [disabled]="true" [items$]="standardItems$"
-                   [control]="testControl"></ff-combobox>
-      <button mat-raised-button color="primary" (click)="echo()">Log value</button>
+    non validated single value
+    <ff-combobox label="Label value items" [validate]="false" [disabled]="true" [items$]="standardItems$"
+    [control]="testControl"></ff-combobox>
+    <button mat-raised-button color="primary" (click)="echo()">Log value</button>
 
 
-    </mat-tab>
-  </mat-tab-group>
+  </mat-tab>
+</mat-tab-group>
 </div>

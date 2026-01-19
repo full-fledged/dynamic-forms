@@ -86,9 +86,9 @@ export const DYNAMIC_FORM: DynamicField[] = [
     value: 'once',
     type: 'select',
     items$: of([
-      'once',
-      'delayed',
-      'scheduled'
+      {value: 'once', label: 'once'},
+      {value: 'delayed', label: 'delayed'},
+      {value: 'scheduled', label: 'scheduled'},
     ])
   },
   {

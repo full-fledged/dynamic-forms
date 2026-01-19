@@ -1,12 +1,12 @@
 import {Component, Inject} from '@angular/core';
 import {AbstractDynamicFieldComponent} from '../abstract-dynamic-field.component';
 import {FF_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     templateUrl: './title.component.html',
     styleUrls: ['./title.component.scss'],
-    imports: [NgIf, AsyncPipe]
+    imports: [AsyncPipe]
 })
 export class TitleComponent extends AbstractDynamicFieldComponent {
 

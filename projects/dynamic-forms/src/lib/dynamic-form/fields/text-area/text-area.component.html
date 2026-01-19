@@ -1,10 +1,14 @@
-<mat-form-field *ngIf="control && (visible$ | async)" class="w-100 mb-3">
-  <textarea [formControl]="control"
-            [id]="field.name"
-            [placeholder]="field.label"
-            matInput
-            [rows]="rows()"></textarea>
-  <mat-error *ngIf="mapErrors(control) as errors">
-    {{errors.join(', ')}}
-  </mat-error>
-</mat-form-field>
+@if (control && (visible$ | async)) {
+  <mat-form-field class="w-100 mb-3">
+    <textarea [formControl]="control"
+      [id]="field.name"
+      [placeholder]="field.label"
+      matInput
+    [rows]="rows()"></textarea>
+    @if (mapErrors(control); as errors) {
+      <mat-error>
+        {{errors.join(', ')}}
+      </mat-error>
+    }
+  </mat-form-field>
+}

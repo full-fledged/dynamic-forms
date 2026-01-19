@@ -6,7 +6,7 @@ import {DynamicField} from './dynamic-field.model';
 import {FF_DATA_TYPE_MAPPING} from './dynamic-form-inject-tokens';
 import {NgCommonsUtils} from '../utils/ng-commons.utils';
 import {deepmerge} from './utils/deepmerge';
-import { NgIf, NgFor } from '@angular/common';
+
 import { DynamicFieldDirective } from './dynamic-field.directive';
 import { MatButton } from '@angular/material/button';
 

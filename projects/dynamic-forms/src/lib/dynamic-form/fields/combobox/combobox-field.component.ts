@@ -1,14 +1,14 @@
 import {Component, Inject} from '@angular/core';
 import {AbstractDynamicFieldComponent} from '../abstract-dynamic-field.component';
 import {FF_ERROR_MESSAGE_MAPPING} from '../../dynamic-form-inject-tokens';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ComboboxComponent } from '../../../combobox/combobox.component';
 import { MatError } from '@angular/material/input';
 
 @Component({
     templateUrl: './combobox-field.component.html',
     styleUrls: ['./combobox-field.component.scss'],
-    imports: [NgIf, ComboboxComponent, MatError, AsyncPipe]
+    imports: [ComboboxComponent, MatError, AsyncPipe]
 })
 export class ComboboxFieldComponent extends AbstractDynamicFieldComponent {
 

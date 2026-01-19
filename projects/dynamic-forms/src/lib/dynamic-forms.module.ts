@@ -87,13 +87,13 @@ export interface DynamicFormsConfig {
     dataTypeMapping?: DataTypeMapping | undefined;
 }
 
-export function provideDynamicForms(config: DynamicFormsConfig): EnvironmentProviders {
+export function provideDynamicForms(config?: DynamicFormsConfig): EnvironmentProviders {
     return makeEnvironmentProviders([
         {provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
         {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-        {provide: FF_DATA_TYPE_MAPPING, useValue: config.dataTypeMapping || DYNAMIC_FORMS_DATA_TYPE_MAPPING},
-        {provide: FF_DYNAMIC_FIELD_TYPES, useValue: config.fieldTypes || DYNAMIC_FORMS_FIELD_TYPES},
-        {provide: FF_ERROR_MESSAGE_MAPPING, useValue: config.errorMapping || DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING},
+        {provide: FF_DATA_TYPE_MAPPING, useValue: config?.dataTypeMapping || DYNAMIC_FORMS_DATA_TYPE_MAPPING},
+        {provide: FF_DYNAMIC_FIELD_TYPES, useValue: config?.fieldTypes || DYNAMIC_FORMS_FIELD_TYPES},
+        {provide: FF_ERROR_MESSAGE_MAPPING, useValue: config?.errorMapping || DYNAMIC_FORMS_ERROR_MESSAGE_MAPPING},
     ]);
 }

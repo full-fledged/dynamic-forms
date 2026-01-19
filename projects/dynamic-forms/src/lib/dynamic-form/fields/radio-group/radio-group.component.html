@@ -1,13 +1,18 @@
-<div *ngIf="control && (visible$ | async)" class="w-100 mb-3">
-  <label [for]="field.name" class="clearfix">{{field.label}}</label>
-  <br>
-  <mat-radio-group [formControl]="control" [id]="field.name" color="primary">
-    <mat-radio-button *ngFor="let item of field.items$ | async" [value]="item.value" class="mr-2">
-      {{item.label}}
-    </mat-radio-button>
-  </mat-radio-group>
-
-  <mat-error *ngIf="mapErrors(control) as errors">
-    {{errors.join(', ')}}
-  </mat-error>
-</div>
+@if (control && (visible$ | async)) {
+  <div class="w-100 mb-3">
+    <label [for]="field.name" class="clearfix">{{field.label}}</label>
+    <br>
+      <mat-radio-group [formControl]="control" [id]="field.name" color="primary">
+        @for (item of field.items$ | async; track item) {
+          <mat-radio-button [value]="item.value" class="mr-2">
+            {{item.label}}
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+      @if (mapErrors(control); as errors) {
+        <mat-error>
+          {{errors.join(', ')}}
+        </mat-error>
+      }
+    </div>
+  }
